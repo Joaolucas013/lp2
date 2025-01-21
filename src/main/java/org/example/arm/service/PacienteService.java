@@ -41,7 +41,6 @@ public class PacienteService {
 
     }
 
-
     private List<Paciente> recuperarPaciente() {
         BufferedReader br = null;
         String path = "C:\\meuscode\\leituraEscrita\\paciente.txt";
