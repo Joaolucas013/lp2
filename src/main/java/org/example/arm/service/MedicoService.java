@@ -10,6 +10,7 @@ import java.util.*;
 public class MedicoService {
 
     Set<Medico> medicoList = new HashSet<>();
+    List<Medico> medicoImutaveis = new ArrayList<>();
     Scanner scanner = new Scanner(System.in);
 
     public void salvarMedico() {
@@ -37,7 +38,7 @@ public class MedicoService {
     }
 
     private void salvarMedicoEmArquivo(Medico medico) throws IOException {
-        String caminho = "C:\\meuscode\\leituraEscrita\\medicos.txt";
+        String caminho = "C:\\meuscode\\consultasLp2\\medicos.txt";
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho, true))) {
             try {
                 bw.write(medico.toString());
@@ -54,8 +55,8 @@ public class MedicoService {
     }
 
 
-    private void recuperarMedico() {
-        String caminho = "C:\\meuscode\\leituraEscrita\\medicos.txt";
+    private Set<Medico> recuperarMedico() {
+        String caminho = "C:\\meuscode\\consultasLp2\\medicos.txt";
         try {
             BufferedReader br = new BufferedReader(new FileReader(caminho));
             try {
@@ -81,9 +82,102 @@ public class MedicoService {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
+        return medicoList;
+    }
+
+    public void bloquearHorario() {
+        System.out.println("Informe o nome do médico!");
+        String nome = scanner.nextLine().trim();
+        var medico = procurarMedico(nome);
+        if (medico == null) {
+            throw new RuntimeException();
+        }
+        System.out.println("Informe o horário de bloqueio para consulta");
+        LocalDateTime horarioBloqueio = LocalDateTime.parse(scanner.nextLine());
+        medico.setBloqueado(horarioBloqueio);
 
     }
 
+
+    private Medico procurarMedico(String nome) {
+        List<Medico> medicos = recuperarMedico().stream().toList();
+        for (Medico medico : medicos) {
+            if (medico.getNome().equalsIgnoreCase(nome)) {
+                return medico;
+            }
+        }
+        System.out.println("Médico não encontrado!");
+        return null;
+    }
+
+
+    public void iniciarMedicos() {
+        Medico med1 = new Medico("Joao", "1234", Especialidade.CARDIOLOGIA,
+                LocalDateTime.parse("2025-02-16T09:00"),
+                LocalDateTime.parse("2025-02-16T16:40"),
+                LocalDateTime.parse("2025-02-16T11:00"),
+                LocalDateTime.parse("2025-02-28T16:00")
+
+        );
+        Medico med2 = new Medico(
+                "Luiz Gabriel",
+                "1122",
+                Especialidade.ORTOPEDIA,
+                LocalDateTime.parse("2025-02-18T11:00"),
+                LocalDateTime.parse("2025-02-18T15:00"),
+                LocalDateTime.parse("2025-02-18T13:00:00"),
+                LocalDateTime.parse("2025-02-17T09:00")
+        );
+
+        Medico med3 = new Medico(
+                "Gabriel Silvestre",
+                "3344",
+                Especialidade.NEUROLOGIA,
+                LocalDateTime.parse("2025-02-19T07:00"),
+                LocalDateTime.parse("2025-02-19T11:00"),
+                LocalDateTime.parse("2025-02-19T09:00"),
+                LocalDateTime.parse("2025-02-23T16:00")
+        );
+        Medico med4 = new Medico(
+                "Láiza Kevelly",
+                "5678",
+                Especialidade.DERMATOLOGIA,
+                LocalDateTime.parse("2025-02-16T09:00"),
+                LocalDateTime.parse("2025-02-16T13:00"),
+                LocalDateTime.parse("2025-02-16T11:00"),
+                LocalDateTime.parse("2025-02-17T15:00")
+        );
+
+        Medico med5 = new Medico(
+                "Gabriel Barbosa",
+                "5678",
+                Especialidade.DERMATOLOGIA,
+                LocalDateTime.parse("2025-02-17T09:00"),
+                LocalDateTime.parse("2025-02-17T13:00"),
+                LocalDateTime.parse("2025-02-17T1:00"),
+                LocalDateTime.parse("2025-02-17T16:00")
+        );
+        medicoImutaveis.add(med1);
+        medicoImutaveis.add(med2);
+        medicoImutaveis.add(med3);
+        medicoImutaveis.add(med4);
+        medicoImutaveis.add(med5);
+        salvarMedicoImutaveis();
+    }
+
+    private void salvarMedicoImutaveis() {
+        String caminho = "C:\\meuscode\\consultasLp2\\medicos.txt";
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(caminho));
+            for (Medico medico : medicoImutaveis) {
+                bw.write(bw.toString());
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("medico salvo com sucesso!");
+    }
 
     private String validarCrm(String crm) {
         List<Medico> list = medicoList.stream().toList();
@@ -95,11 +189,11 @@ public class MedicoService {
             if (m.getCrm().equals(crm) || crm.length() < 4) {
                 System.out.println("CRM inválido! informe novamente corretamente");
                 String validado = novoCrm(crm);
-                novo =  validarCrm(validado);
+                novo = validarCrm(validado);
                 return novo;
             }
         }
-        return novo+=crm;
+        return novo += crm;
     }
 
     private String novoCrm(String crm) {
@@ -107,4 +201,5 @@ public class MedicoService {
         String novoCrm = scanner.nextLine().trim();
         return novoCrm;
     }
+
 }
