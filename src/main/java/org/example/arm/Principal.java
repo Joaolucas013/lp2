@@ -8,9 +8,10 @@ import java.util.Scanner;
 
 public class Principal {
 
+  static   MedicoService medicoService = new MedicoService();
 
     public static void main(String[] args) {
-
+      medicoService.iniciarMedicos();
         boolean continuar = true;
         while (continuar) {
             menu();
@@ -46,7 +47,6 @@ public class Principal {
     }
 
     private static void cadastrarMedico() {
-        MedicoService medicoService = new MedicoService();
         medicoService.salvarMedico();
     }
 
@@ -55,7 +55,7 @@ public class Principal {
     }
 
     private static void bloquearHorario() {
-
+        medicoService.bloquearHorario();
     }
 
     private static void agendar() {

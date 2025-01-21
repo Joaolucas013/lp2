@@ -30,8 +30,10 @@ public class MedicoService {
         LocalDateTime horarioDescanso = LocalDateTime.parse(scanner.nextLine());
 
         Medico medico = new Medico(nome, crmValido, especialidade, consulta, disponibilidade, horarioDescanso);
+        medicoList.add(medico);
         try {
             salvarMedicoEmArquivo(medico);
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -42,6 +44,26 @@ public class MedicoService {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho, true))) {
             try {
                 bw.write(medico.toString());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                bw.newLine();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+    }
+
+    private void salvarTodosMedicos() throws IOException {
+        String caminho = "C:\\meuscode\\consultasLp2\\medicos.txt";
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho))) { // se aqui for true, vai armazenar dados repetidos com informações diferentes!
+            try {
+                for (Medico medico : medicoList) {
+                    bw.write(medico.toString());
+                    bw.newLine();
+                }
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -95,6 +117,7 @@ public class MedicoService {
         System.out.println("Informe o horário de bloqueio para consulta");
         LocalDateTime horarioBloqueio = LocalDateTime.parse(scanner.nextLine());
         medico.setBloqueado(horarioBloqueio);
+
 
     }
 
@@ -154,7 +177,7 @@ public class MedicoService {
                 Especialidade.DERMATOLOGIA,
                 LocalDateTime.parse("2025-02-17T09:00"),
                 LocalDateTime.parse("2025-02-17T13:00"),
-                LocalDateTime.parse("2025-02-17T1:00"),
+                LocalDateTime.parse("2025-02-17T15:00"),
                 LocalDateTime.parse("2025-02-17T16:00")
         );
         medicoImutaveis.add(med1);
@@ -168,10 +191,11 @@ public class MedicoService {
     private void salvarMedicoImutaveis() {
         String caminho = "C:\\meuscode\\consultasLp2\\medicos.txt";
         try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter(caminho));
-            for (Medico medico : medicoImutaveis) {
-                bw.write(bw.toString());
-                bw.newLine();
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho))) {
+                for (Medico medico : medicoImutaveis) {
+                    bw.write(medico.toString());
+                    bw.newLine();
+                }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
