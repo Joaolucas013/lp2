@@ -19,7 +19,7 @@ public class Medico {
         this.especialidade = especialidade;
         this.consulta = consulta;
         this.disponibilidade = disponibilidade;
-        this.bloqueado = null;
+       this.bloqueado = LocalDateTime.now();
         this.descanso = descanso;
     }
 
