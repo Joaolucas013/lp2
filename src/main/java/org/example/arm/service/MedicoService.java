@@ -17,6 +17,7 @@ public class MedicoService {
         String nome = scanner.nextLine();
         System.out.println("Informe o CRM: ");
         String crm = scanner.nextLine();
+        String crmValido = validarCrm(crm);
         System.out.println("Informe  a especialidade");
         Especialidade especialidade = Especialidade.valueOf(scanner.nextLine());
 
@@ -27,7 +28,7 @@ public class MedicoService {
         System.out.println("Informe o horário de descanso do médico!");
         LocalDateTime horarioDescanso = LocalDateTime.parse(scanner.nextLine());
 
-        Medico medico = new Medico(nome, crm, especialidade, consulta, disponibilidade, horarioDescanso);
+        Medico medico = new Medico(nome, crmValido, especialidade, consulta, disponibilidade, horarioDescanso);
         try {
             salvarMedicoEmArquivo(medico);
         } catch (IOException e) {
@@ -81,5 +82,29 @@ public class MedicoService {
             throw new RuntimeException(e);
         }
 
+    }
+
+
+    private String validarCrm(String crm) {
+        List<Medico> list = medicoList.stream().toList();
+        String novo = "";
+
+        for (int i = 0; i < list.size(); i++) {
+            Medico m = list.get(i);
+
+            if (m.getCrm().equals(crm) || crm.length() < 4) {
+                System.out.println("CRM inválido! informe novamente corretamente");
+                String validado = novoCrm(crm);
+                novo =  validarCrm(validado);
+                return novo;
+            }
+        }
+        return novo+=crm;
+    }
+
+    private String novoCrm(String crm) {
+        System.out.println("Informe o novo crm");
+        String novoCrm = scanner.nextLine().trim();
+        return novoCrm;
     }
 }

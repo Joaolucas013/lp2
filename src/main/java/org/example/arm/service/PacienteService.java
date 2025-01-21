@@ -43,7 +43,7 @@ public class PacienteService {
 
     private List<Paciente> recuperarPaciente() {
         BufferedReader br = null;
-        String path = "C:\\meuscode\\leituraEscrita\\paciente.txt";
+        String path = "C:\\meuscode\\consultasLp2\\paciente.txt";
         try {
             br = new BufferedReader(new FileReader(path));
         } catch (FileNotFoundException e) {
