@@ -1,5 +1,6 @@
 package org.example.arm.medico;
 
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -19,7 +20,7 @@ public class Medico {
         this.especialidade = especialidade;
         this.consulta = consulta;
         this.disponibilidade = disponibilidade;
-        this.bloqueado = null;
+        this.bloqueado = LocalDateTime.now().with(DayOfWeek.SUNDAY); //  domingo esta bloqueado para consulta ate que seja alterado
         this.descanso = descanso;
     }
 

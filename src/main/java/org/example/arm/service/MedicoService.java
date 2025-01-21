@@ -19,9 +19,10 @@ public class MedicoService {
         String nome =  scanner.nextLine();
         System.out.println("Informe o CRM: ");
         String crm = scanner.nextLine();
+        String crmValido = validarCrm(crm);
         System.out.println("Informe  a especialidade");
         Especialidade especialidade = Especialidade.valueOf(scanner.nextLine());
-        // validarCRM
+
         System.out.println("Informe a data de consulta do médico!");
         LocalDateTime consulta = LocalDateTime.parse(scanner.nextLine());
         System.out.println("Informe outro horário de disponibilidade para a semana");
@@ -29,7 +30,7 @@ public class MedicoService {
         System.out.println("Informe o horário de descanso do médico!");
         LocalDateTime horarioDescanso = LocalDateTime.parse(scanner.nextLine());
 
-        Medico medico = new Medico(nome, crm, especialidade, consulta, disponibilidade, horarioDescanso);
+        Medico medico = new Medico(nome, crmValido, especialidade, consulta, disponibilidade, horarioDescanso);
         try {
             salvarMedicoEmArquivo(medico);
         } catch (IOException e) {
@@ -38,7 +39,7 @@ public class MedicoService {
     }
 
     private void salvarMedicoEmArquivo(Medico medico) throws IOException {
-        String caminho = "C:\\meuscode\\leituraEscrita\\medicos.txt";
+        String caminho = "C:\\meuscode\\consultasLp2\\medicos.txt";
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho, true))) {
             try {
                 bw.write(medico.toString());
@@ -55,8 +56,25 @@ public class MedicoService {
     }
 
 
-    private void recuperarMedico(){
-        String caminho = "C:\\meuscode\\leituraEscrita\\medicos.txt";
+    public Medico procurarMedico() {
+        List<Medico> medicos = retornaMedico();
+        if (medicos.isEmpty()) {
+            return null;
+        }
+        System.out.println("Informe o nome do médico");
+        String nome = scanner.nextLine();
+        for (Medico medico : medicos) {
+            if (medico.getNome().equalsIgnoreCase(nome)) {
+                System.out.println("Médico encontrado:" + medico);
+                return medico;
+            }
+        }
+        return null;
+    }
+
+
+    private List<Medico> retornaMedico(){
+        String caminho = "C:\\meuscode\\consultasLp2\\medicos.txt";
         try {
             BufferedReader br = new BufferedReader(new FileReader(caminho));
             try {
@@ -73,6 +91,8 @@ public class MedicoService {
                     LocalDateTime descanso = LocalDateTime.parse(vetor[6].split("=")[1].replace("'", ""));
 
                     Medico medico = new Medico(nome, crm, especialidade, consulta, disponibilidade, bloqueado, descanso);
+                    medicoList.add(medico);
+                    linha = br.readLine();
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -81,6 +101,41 @@ public class MedicoService {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
+        return medicoList;
+    }
+
+
+    private String validarCrm(String crm) {
+        List<Medico> list = retornaMedico();
+        String novo = "";
+
+        for (Medico medico : list) {
+            if (medico.getCrm().equals(crm) || crm.length() < 4) {
+                System.out.println("CRM inválido! informe  corretamente");
+                String validado = novoCrm(crm);
+                novo = validarCrm(validado);
+                return novo;
+            }
+        }
+        return novo += crm;
+    }
+
+    private String novoCrm(String crm) {
+        System.out.println("Informe o novo crm");
+        String novoCrm = scanner.nextLine().trim();
+        return novoCrm;
+    }
+
+    private void bloquearHorarioMedico(){
+         Medico medico = procurarMedico();
+         if(medico==null){
+             throw new RuntimeException();
+         }
+        System.out.println("Informe o horario de bloqueio");
+        LocalDateTime bloqueio = LocalDateTime.parse(scanner.nextLine());
+        medico.setBloqueado(bloqueio);
 
     }
+
+
 }

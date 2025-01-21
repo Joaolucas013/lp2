@@ -1,1 +1,4 @@
-Medico{nome='muzzy', crm='1892', especialidade=DERMATOLOGIA, consulta=2025-01-17T13:00, disponibilidade=2025-01-17T13:40, bloqueado=null, descanso=2025-01-17T16:00}
+Medico{nome='muzzy', crm='1892', especialidade=DERMATOLOGIA, consulta=2025-01-17T13:00, disponibilidade=2025-01-17T13:40, bloqueado=2025-01-17T18:40, descanso=2025-01-17T16:00}
+Medico{nome='Eminem', crm='1832', especialidade=UROLOGIA, consulta=2025-03-17T13:40, disponibilidade=2025-03-18T13:30, bloqueado=2025-01-21T19:08:23.912914900, descanso=2025-03-17T18:40}
+Medico{nome='Jay z', crm='8971', especialidade=UROLOGIA, consulta=2025-03-17T13:40, disponibilidade=2025-03-17T13:20, bloqueado=2025-01-26T19:19:00.260667300, descanso=2025-03-17T13:00}
+

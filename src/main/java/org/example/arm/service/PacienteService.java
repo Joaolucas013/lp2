@@ -27,8 +27,8 @@ public class PacienteService {
 
     private void salvarPaciente(Paciente paciente) {
         // aqui é interessante que voce coloque o caminho certo do arquivo e coloque // em vez de / se nao o java entende como quebra de linha
+        String path = "C:\\meuscode\\consultasLp2\\paciente.txt";
 
-        String path = "C:\\meuscode\\leituraEscrita\\paciente.txt";
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(path, true))) {
             bw.write(paciente.toString());
             bw.newLine();
@@ -59,7 +59,7 @@ public class PacienteService {
 
         while(linha!=null){
 
-            linha = linha.replace("Paciente{", "").replace("}", ""); // troca Paciente por uma Strin vazia
+            linha = linha.replace("Paciente{", "").replace("}", ""); // troca Paciente{ por uma Strin vazia e a chave } por outra String vazia
             String [] vetor = linha.split(","); // armazena o dado ate a virgula
             String nome = vetor[0].split("=")[1].replace("'", "");  // pega o dado da linha 0 coluna 1 ate o = e troca a aspa simples por uma String vazia!!!!
             String sexo = vetor[1].split("=")[1].replace("'", "");
@@ -71,10 +71,10 @@ public class PacienteService {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-
-
         }
         return pacientes;
     }
+
+
 
 }
