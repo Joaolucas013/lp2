@@ -1,0 +1,1 @@
+Medico{nome='muzzy', crm='1892', especialidade=DERMATOLOGIA, consulta=2025-01-17T13:00, disponibilidade=2025-01-17T13:40, bloqueado=null, descanso=2025-01-17T16:00}

@@ -1,0 +1,3 @@
+Paciente{nome='joao', sexo='masculino', idade=23}
+Paciente{nome='joao teste', sexo='masculino', idade=23}
+
