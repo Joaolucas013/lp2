@@ -72,7 +72,9 @@ public class MedicoService {
                     LocalDateTime bloqueado = LocalDateTime.parse(vetor[5].split("=")[1].replace("'", ""));
                     LocalDateTime descanso = LocalDateTime.parse(vetor[6].split("=")[1].replace("'", ""));
 
-                    Medico medico = new Medico(nome, crm, especialidade, consulta, disponibilidade, bloqueado, descanso);
+                     Medico medico = new Medico(nome, crm, especialidade, consulta, disponibilidade, bloqueado, descanso);
+                    medicoList.add(medico);
+                    linha = br.readLine();
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);
