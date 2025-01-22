@@ -32,7 +32,7 @@ public class PacienteService {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(path, true))) {
             bw.write(paciente.toString());
             bw.newLine();
-         //   bw.close();
+            bw.close();
             System.out.println("Paciente salvo com sucesso: " + paciente);
         } catch (IOException e) {
             e.printStackTrace();

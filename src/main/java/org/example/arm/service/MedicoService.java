@@ -6,10 +6,11 @@ import org.example.arm.medico.Medico;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class MedicoService {
 
-    List<Medico> medicoList = new ArrayList<>();
+     List<Medico> medicoList = new ArrayList<>();
     List<Medico> medicoImutaveis = new ArrayList<>();
     Scanner scanner = new Scanner(System.in);
 
@@ -30,13 +31,43 @@ public class MedicoService {
         LocalDateTime horarioDescanso = LocalDateTime.parse(scanner.nextLine());
 
         Medico medico = new Medico(nome, crmValido, especialidade, consulta, disponibilidade, horarioDescanso);
-        medicoList.add(medico);
+//        medicoList.add(medico);
         try {
             salvarMedicoEmArquivo(medico);
 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+    public  void recuperarMedico() {
+        String caminho = "C:\\meuscode\\consultasLp2\\medicos.txt";
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(caminho));
+            try {
+                String linha = br.readLine();
+                while (linha != null) {
+                    linha = linha.replace("Medico{", "").replace("}", "");
+                    String[] vetor = linha.split(",");
+                    String nome = vetor[0].split("=")[1].replace("'", "");
+                    String crm = vetor[1].split("=")[1].replace("'", "");
+                    Especialidade especialidade = Especialidade.valueOf(vetor[2].split("=")[1].replace("'", ""));
+                    LocalDateTime consulta = LocalDateTime.parse(vetor[3].split("=")[1].replace("'", ""));
+                    LocalDateTime disponibilidade = LocalDateTime.parse(vetor[4].split("=")[1].replace("'", ""));
+                    LocalDateTime bloqueado = LocalDateTime.parse(vetor[5].split("=")[1].replace("'", ""));
+                    LocalDateTime descanso = LocalDateTime.parse(vetor[6].split("=")[1].replace("'", ""));
+
+                    Medico medico = new Medico(nome, crm, especialidade, consulta, disponibilidade, descanso, bloqueado);
+                    medicoList.add(medico);
+                    linha = br.readLine();
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     private void salvarMedicoEmArquivo(Medico medico) throws IOException {
@@ -76,41 +107,11 @@ public class MedicoService {
         }
     }
 
-    public void buscaEspecialidade(){
-        System.out.println("Informe a especialidade desejada:");
-        Especialidade especialidade = Especialidade.valueOf(scanner.nextLine().toUpperCase());
-       var medico =  procurarMedicoEspecialidade(especialidade);
-        System.out.println("medico name: " + medico);
-    }
-
-    private List<Medico> recuperarMedico() {
-        String caminho = "C:\\meuscode\\consultasLp2\\medicos.txt";
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(caminho));
-            try {
-                String linha = br.readLine();
-                while (linha != null) {
-                    linha = linha.replace("Medico{", "").replace("}", "");
-                    String[] vetor = linha.split(",");
-                    String nome = vetor[0].split("=")[1].replace("'", "");
-                    String crm = vetor[1].split("=")[1].replace("'", "");
-                    Especialidade especialidade = Especialidade.valueOf(vetor[2].split("=")[1].replace("'", ""));
-                    LocalDateTime consulta = LocalDateTime.parse(vetor[3].split("=")[1].replace("'", ""));
-                    LocalDateTime disponibilidade = LocalDateTime.parse(vetor[4].split("=")[1].replace("'", ""));
-                    LocalDateTime bloqueado = LocalDateTime.parse(vetor[5].split("=")[1].replace("'", ""));
-                    LocalDateTime descanso = LocalDateTime.parse(vetor[6].split("=")[1].replace("'", ""));
-
-                    Medico medico = new Medico(nome, crm, especialidade, consulta, disponibilidade, bloqueado, descanso);
-                    medicoList.add(medico);
-                }
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        return medicoList;
+    public void buscaEspecialidade() {
+        System.out.println("Informe a especialidade");
+        Especialidade especialidade = Especialidade.valueOf(scanner.nextLine());
+        var medico = procurarMedicoEspecialidade(especialidade);
+        System.out.println(medico.toString());
     }
 
     public void bloquearHorario() {
@@ -128,8 +129,12 @@ public class MedicoService {
 
 
     private Medico procurarMedico(String nome) {
-        recuperarMedico();
-        for (Medico medico : recuperarMedico()) {
+        List<Medico> medicos = medicoList;
+        if(medicos.isEmpty()){
+            recuperarMedico();
+        }
+
+        for (Medico medico : medicos) {
             if (medico.getNome().equalsIgnoreCase(nome)) {
                 return medico;
             }
@@ -138,14 +143,18 @@ public class MedicoService {
         return null;
     }
 
-    private Medico procurarMedicoEspecialidade(Especialidade especialidade) {
-       // List<Medico> medicos = recuperarMedico();
-        for (Medico medico : recuperarMedico()) {
+    public Medico procurarMedicoEspecialidade(Especialidade especialidade) {
+        recuperarMedico();
+//        List<Medico> medicos = medicoList.stream().map(e->new Medico(e.getNome(), e.getCrm(), e.getEspecialidade(), e.getConsulta(), e.getDisponibilidade(), e.getBloqueado())).collect(Collectors.toList());
+        List<Medico> medicos = medicoList;
+
+        for (Medico medico : medicos) {
             if (medico.getEspecialidade().equals(especialidade)) {
-                return medico;
+                Medico medico1 = new Medico(medico.getNome(), medico.getCrm(), medico.getEspecialidade(), medico.getConsulta(), medico.getDisponibilidade(), medico.getBloqueado());
+                return medico1;
+
             }
         }
-        System.out.println("especialidade  não encontrada!");
         return null;
     }
 
