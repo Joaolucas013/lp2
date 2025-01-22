@@ -1,5 +1,6 @@
 package org.example.arm;
 
+import org.example.arm.medico.Medico;
 import org.example.arm.paciente.Paciente;
 import org.example.arm.service.MedicoService;
 import org.example.arm.service.PacienteService;
@@ -11,7 +12,7 @@ public class Principal {
   static   MedicoService medicoService = new MedicoService();
 
     public static void main(String[] args) {
-      medicoService.iniciarMedicos();
+
         boolean continuar = true;
         while (continuar) {
             menu();
@@ -47,14 +48,18 @@ public class Principal {
     }
 
     private static void cadastrarMedico() {
-        medicoService.salvarMedico();
+        MedicoService medicoService = new MedicoService();
+         medicoService.salvarMedico();
     }
 
     private static void cadastrarPelaEspecialidade() {
-        medicoService.buscaEspecialidade();
+      medicoService.buscaEspecialidade();
+
+
     }
 
     private static void bloquearHorario() {
+        MedicoService medicoService = new MedicoService();
         medicoService.bloquearHorario();
     }
 

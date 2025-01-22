@@ -12,5 +12,7 @@ public enum Especialidade {
     PEDIATRIA,
     PSIQUIATRIA,
     UROLOGIA,
-    CLINICA_GERAL
+    CLINICA_GERAL;
+
+
 }
