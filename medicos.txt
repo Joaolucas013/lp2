@@ -3,3 +3,5 @@ Medico{nome='Luiz Gabriel', crm='1122', especialidade=ORTOPEDIA, consulta=2025-0
 Medico{nome='Gabriel Silvestre', crm='3344', especialidade=NEUROLOGIA, consulta=2025-02-19T07:00, disponibilidade=2025-02-19T11:00, bloqueado=2025-02-19T09:00, descanso=2025-02-23T16:00}
 Medico{nome='Láiza Kevelly', crm='5678', especialidade=DERMATOLOGIA, consulta=2025-02-16T09:00, disponibilidade=2025-02-16T13:00, bloqueado=2025-02-16T11:00, descanso=2025-02-17T15:00}
 Medico{nome='Gabriel Barbosa', crm='5678', especialidade=DERMATOLOGIA, consulta=2025-02-17T09:00, disponibilidade=2025-02-17T13:00, bloqueado=2025-02-17T15:00, descanso=2025-02-17T16:00}
+Medico{nome='Eminem', crm='2984', especialidade=UROLOGIA, consulta=2025-02-17T18:40, disponibilidade=2025-02-17T18:40, bloqueado=2025-02-17T08:40, descanso=2025-02-17T18:10}
+

@@ -31,6 +31,7 @@ public class MedicoService {
 
         Medico medico = new Medico(nome, crmValido, especialidade, consulta, disponibilidade, horarioDescanso);
         medicoList.add(medico);
+        System.out.println("Médico salvo com sucesso! " + medico);
         try {
             salvarMedicoEmArquivo(medico);
 
@@ -76,14 +77,15 @@ public class MedicoService {
         }
     }
 
-    public void buscaEspecialidade(){
+    public void buscaEspecialidade() {
         System.out.println("Informe a especialidade desejada:");
         Especialidade especialidade = Especialidade.valueOf(scanner.nextLine().toUpperCase().trim());
-       var medico =  procurarMedicoEspecialidade(especialidade);
+        var medico = procurarMedicoEspecialidade(especialidade);
         System.out.println(medico.toString());
     }
 
-    public void  recuperarMedico() {
+    // aqui retorna todos os médicos, os imutaveis tbm, mas n é possivel mudar os dados deles
+    public List<Medico> recuperarMedico() {
         String caminho = "C:\\meuscode\\consultasLp2\\medicos.txt";
         try {
             BufferedReader br = new BufferedReader(new FileReader(caminho));
@@ -101,8 +103,11 @@ public class MedicoService {
                     LocalDateTime descanso = LocalDateTime.parse(vetor[6].split("=")[1].replace("'", ""));
 
                     Medico medico = new Medico(nome, crm, especialidade, consulta, disponibilidade, bloqueado, descanso);
+                    if (medicoImutaveis.size() < 5) {
+                        medicoImutaveis.add(medico);
+                    }
                     medicoList.add(medico);
-                    linha= br.readLine();
+                    linha = br.readLine();
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -111,19 +116,55 @@ public class MedicoService {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
+        return medicoList;
     }
 
     public void bloquearHorario() {
+        medicoList.stream().forEach(System.out::println);
+
         System.out.println("Informe o nome do médico!");
         String nome = scanner.nextLine();
         var medico = procurarMedico(nome);
         if (medico == null) {
             throw new RuntimeException();
         }
-        System.out.println("Informe o horário de bloqueio para consulta");
+        for (int i = 0; i <medicoImutaveis.size() ; i++) {
+            Medico medico1 = medicoImutaveis.get(i);
+            if(medico.getNome().equalsIgnoreCase(String.valueOf(medico1.getNome()))){
+                System.out.println("Não é permitido alterar dados dos médicos imutáveis");
+                throw new RuntimeException();
+            }
+        }
+
+        System.out.println("Informe o dia e horario do bloqueio para consulta");
         LocalDateTime horarioBloqueio = LocalDateTime.parse(scanner.nextLine());
         medico.setBloqueado(horarioBloqueio);
+        medicoList.stream().forEach(System.out::println);
+        try {
+            salvarAlteracoes();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
+    private void salvarAlteracoes() throws IOException {
+        String caminho = "C:\\meuscode\\consultasLp2\\medicos.txt";
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho))) {
+            try {
+                for (Medico medico:medicoList){
+                    bw.write(medico.toString());
+                    bw.newLine();
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                bw.newLine();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
     }
 
 
@@ -143,15 +184,15 @@ public class MedicoService {
 
     private Medico procurarMedicoEspecialidade(Especialidade especialidade) {
 
-        if(medicoList.isEmpty()){
+        if (medicoList.isEmpty()) {
             recuperarMedico();
         }
-       for (Medico medico:medicoList){
-           if(medico.getEspecialidade().equals(especialidade)){
-               Medico medico1 = new Medico(medico.getNome(), medico.getCrm(), medico.getEspecialidade(), medico.getConsulta(), medico.getDisponibilidade(), medico.getBloqueado(), medico.getBloqueado());
-             return medico1;
-           }
-       }
+        for (Medico medico : medicoList) {
+            if (medico.getEspecialidade().equals(especialidade)) {
+                Medico medico1 = new Medico(medico.getNome(), medico.getCrm(), medico.getEspecialidade(), medico.getConsulta(), medico.getDisponibilidade(), medico.getBloqueado(), medico.getBloqueado());
+                return medico1;
+            }
+        }
         return null;
     }
 
@@ -252,4 +293,16 @@ public class MedicoService {
         return novoCrm;
     }
 
+    public void retornarMedicoImutaveis() {
+
+        if (medicoImutaveis.isEmpty()) {
+            recuperarMedico();
+            if (medicoImutaveis.isEmpty()) {
+                iniciarMedicos();
+            }
+        }
+        medicoImutaveis.stream().forEach(System.out::println);
+        medicoList.stream().forEach(System.out::println);
+
+    }
 }

@@ -11,8 +11,7 @@ public class Principal {
   static   MedicoService medicoService = new MedicoService();
 
     public static void main(String[] args) {
-//      medicoService.iniciarMedicos();
-//      medicoService.recuperarMedico();
+        medicoService.retornarMedicoImutaveis();
         boolean continuar = true;
         while (continuar) {
             menu();
