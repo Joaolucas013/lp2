@@ -1,5 +1,6 @@
 package org.example.arm;
 
+import org.example.arm.paciente.Paciente;
 import org.example.arm.service.MedicoService;
 import org.example.arm.service.PacienteService;
 
@@ -7,10 +8,11 @@ import java.util.Scanner;
 
 public class Principal {
 
- private  static MedicoService medicoService = new MedicoService();
+  static   MedicoService medicoService = new MedicoService();
 
     public static void main(String[] args) {
-    medicoService.iniciarMedicos();
+//      medicoService.iniciarMedicos();
+//      medicoService.recuperarMedico();
         boolean continuar = true;
         while (continuar) {
             menu();
@@ -46,16 +48,14 @@ public class Principal {
     }
 
     private static void cadastrarMedico() {
-        MedicoService medicoService = new MedicoService();
-         medicoService.salvarMedico();
+        medicoService.salvarMedico();
     }
 
     private static void cadastrarPelaEspecialidade() {
-      medicoService.buscaEspecialidade();
+        medicoService.buscaEspecialidade();
     }
 
     private static void bloquearHorario() {
-        MedicoService medicoService = new MedicoService();
         medicoService.bloquearHorario();
     }
 
