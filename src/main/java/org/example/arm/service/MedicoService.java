@@ -102,6 +102,7 @@ public class MedicoService {
 
                     Medico medico = new Medico(nome, crm, especialidade, consulta, disponibilidade, bloqueado, descanso);
                     medicoList.add(medico);
+                    linha= br.readLine();
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -141,11 +142,11 @@ public class MedicoService {
     }
 
     private Medico procurarMedicoEspecialidade(Especialidade especialidade) {
-        List<Medico> medicos = medicoList;
-        if(medicos.isEmpty()){
+
+        if(medicoList.isEmpty()){
             recuperarMedico();
         }
-       for (Medico medico:medicos){
+       for (Medico medico:medicoList){
            if(medico.getEspecialidade().equals(especialidade)){
                Medico medico1 = new Medico(medico.getNome(), medico.getCrm(), medico.getEspecialidade(), medico.getConsulta(), medico.getDisponibilidade(), medico.getBloqueado(), medico.getBloqueado());
              return medico1;
@@ -226,15 +227,14 @@ public class MedicoService {
     }
 
     private String validarCrm(String crm) {
-        List<Medico> list = medicoList;
-
-        if(list.isEmpty()){
+        if(medicoList.isEmpty()){
             recuperarMedico();
         }
+
         String novo = "";
 
-        for (int i = 0; i < list.size(); i++) {
-            Medico m = list.get(i);
+        for (int i = 0; i < medicoList.size(); i++) {
+            Medico m = medicoList.get(i);
 
             if (m.getCrm().equals(crm) || crm.length() < 4) {
                 System.out.println("CRM inválido! informe novamente corretamente");
