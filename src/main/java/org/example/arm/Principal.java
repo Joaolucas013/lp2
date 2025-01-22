@@ -21,7 +21,7 @@ public class Principal {
                     agendar();
                     break;
                 case 2:
-                    bloquearHorario();
+                   bloquearHorario();
                     break;
                 case 3:
                     cadastrarPelaEspecialidade();

@@ -109,7 +109,7 @@ public class MedicoService {
 
     public void bloquearHorario() {
         System.out.println("Informe o nome do médico!");
-        String nome = scanner.nextLine().trim();
+        String nome = scanner.nextLine();
         var medico = procurarMedico(nome);
         if (medico == null) {
             throw new RuntimeException();
