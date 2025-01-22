@@ -51,7 +51,7 @@ public class Principal {
     }
 
     private static void cadastrarPelaEspecialidade() {
-
+        medicoService.buscaEspecialidade();
     }
 
     private static void bloquearHorario() {

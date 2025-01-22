@@ -9,7 +9,7 @@ import java.util.*;
 
 public class MedicoService {
 
-    Set<Medico> medicoList = new HashSet<>();
+    List<Medico> medicoList = new ArrayList<>();
     List<Medico> medicoImutaveis = new ArrayList<>();
     Scanner scanner = new Scanner(System.in);
 
@@ -76,8 +76,14 @@ public class MedicoService {
         }
     }
 
+    public void buscaEspecialidade(){
+        System.out.println("Informe a especialidade desejada:");
+        Especialidade especialidade = Especialidade.valueOf(scanner.nextLine().toUpperCase());
+       var medico =  procurarMedicoEspecialidade(especialidade);
+        System.out.println("medico name: " + medico);
+    }
 
-    private Set<Medico> recuperarMedico() {
+    private List<Medico> recuperarMedico() {
         String caminho = "C:\\meuscode\\consultasLp2\\medicos.txt";
         try {
             BufferedReader br = new BufferedReader(new FileReader(caminho));
@@ -118,13 +124,12 @@ public class MedicoService {
         LocalDateTime horarioBloqueio = LocalDateTime.parse(scanner.nextLine());
         medico.setBloqueado(horarioBloqueio);
 
-
     }
 
 
     private Medico procurarMedico(String nome) {
-        List<Medico> medicos = recuperarMedico().stream().toList();
-        for (Medico medico : medicos) {
+        recuperarMedico();
+        for (Medico medico : recuperarMedico()) {
             if (medico.getNome().equalsIgnoreCase(nome)) {
                 return medico;
             }
@@ -132,6 +137,18 @@ public class MedicoService {
         System.out.println("Médico não encontrado!");
         return null;
     }
+
+    private Medico procurarMedicoEspecialidade(Especialidade especialidade) {
+       // List<Medico> medicos = recuperarMedico();
+        for (Medico medico : recuperarMedico()) {
+            if (medico.getEspecialidade().equals(especialidade)) {
+                return medico;
+            }
+        }
+        System.out.println("especialidade  não encontrada!");
+        return null;
+    }
+
 
 
     public void iniciarMedicos() {
