@@ -12,7 +12,7 @@ public class PacienteService {
     List<Paciente> pacientes = new ArrayList<>();
     Scanner scanner = new Scanner(System.in);
 
-    public void cadastrarPaciente() {
+    public Paciente  cadastrarPaciente() {
         System.out.println("Informe o  nome do paciente:");
         String nome = scanner.nextLine().trim();
         System.out.println("Informe a  idade:");
@@ -22,6 +22,7 @@ public class PacienteService {
         String sexo = scanner.nextLine().trim();
         Paciente paciente = new Paciente(nome, sexo, idade);
         salvarPaciente(paciente);
+        return paciente;
     }
 
 
@@ -67,20 +68,20 @@ public class PacienteService {
     }
 
 
-   public Paciente procurarPaciente(String nome){
-        if(pacientes.isEmpty()){
+    public Paciente procurarPaciente(String nome) {
+        if (pacientes.isEmpty()) {
             recuperarPaciente();
-            if(pacientes.isEmpty()){
-                cadastrarPaciente();
-            }
         }
 
-        for (Paciente p:pacientes){
-            if(p.getNome().trim().equalsIgnoreCase(nome.trim())){
+        for (Paciente p : pacientes) {
+            if (p.getNome().trim().equalsIgnoreCase(nome.trim())) {
                 return p;
+            } else if (!p.getNome().trim().equalsIgnoreCase(nome.trim())) {
+                var paciente = cadastrarPaciente();
+                return paciente;
             }
         }
         return null;
-   }
+    }
 
 }

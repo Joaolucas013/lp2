@@ -1,8 +1,7 @@
 package org.example.arm.service;
 
 import org.example.arm.consulta.Consulta;
-import org.example.arm.consulta.ConsultaDto;
-import org.example.arm.exception.ConsultaException;
+import org.example.arm.consulta.DadosConsulta;
 import org.example.arm.medico.Especialidade;
 import org.example.arm.medico.Medico;
 import org.example.arm.paciente.Paciente;
@@ -13,7 +12,6 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class ConsultaService {
@@ -83,7 +81,7 @@ public class ConsultaService {
         if(!medico.getHorariosDisponiveis().isEmpty()){
             LocalDateTime horario = medico.getHorariosDisponiveis().get(0);
             Consulta consulta = new Consulta(horario, medico, paciente);
-            ConsultaDto consultaDto = new ConsultaDto(consulta.getPaciente().getNome(), consulta.getMedico().getNome(), consulta.getMedico().getEspecialidade(), horario);
+            DadosConsulta consultaDto = new DadosConsulta(consulta.getPaciente().getNome(), consulta.getMedico().getNome(), consulta.getMedico().getEspecialidade(), horario);
             System.out.println("Consulta agendada com sucesso!\n" + consultaDto);
             medico.getHorariosDisponiveis().remove(horario);
 
@@ -100,7 +98,7 @@ public class ConsultaService {
 
             medico.setHorariosDisponiveis(horarioReservado);
             Consulta consulta = new Consulta(outroHorario, medico, paciente);
-            ConsultaDto consultaDto = new ConsultaDto(consulta.getPaciente().getNome(), consulta.getMedico().getNome(), consulta.getMedico().getEspecialidade(), outroHorario);
+            DadosConsulta consultaDto = new DadosConsulta(consulta.getPaciente().getNome(), consulta.getMedico().getNome(), consulta.getMedico().getEspecialidade(), outroHorario);
 
             System.out.println("Consulta agendada com sucesso!\n" + consultaDto);
             medicoService.salvarAlteracoes();
