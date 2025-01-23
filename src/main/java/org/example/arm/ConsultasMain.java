@@ -6,7 +6,7 @@ import org.example.arm.service.PacienteService;
 
 import java.util.Scanner;
 
-public class Principal {
+public class ConsultasMain {
 
   static   MedicoService medicoService = new MedicoService();
   static ConsultaService consultaService = new ConsultaService();
