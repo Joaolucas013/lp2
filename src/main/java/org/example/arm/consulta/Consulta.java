@@ -44,7 +44,7 @@ public class Consulta {
 
     @Override
     public String toString() {
-        return "Consultas{" +
+        return "Consulta{" +
                 "horario consulta=" + dataConsulta +
                 ", medico=" + medico +
                 ", paciente=" + paciente +

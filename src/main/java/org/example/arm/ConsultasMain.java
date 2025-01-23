@@ -10,6 +10,7 @@ public class ConsultasMain {
 
   static   MedicoService medicoService = new MedicoService();
   static ConsultaService consultaService = new ConsultaService();
+  static PacienteService pacienteService = new PacienteService();
 
     public static void main(String[] args) {
        medicoService.retornarMedicoImutaveis();
@@ -34,6 +35,8 @@ public class ConsultasMain {
                     cadastrarPaciente();
                     break;
                 case 6:
+                    System.out.println("Salvando consulta!");
+                    consultaService.salvarConsulta();
                     System.out.println("Bye...");
                     continuar= false;
                     break;
@@ -52,7 +55,7 @@ public class ConsultasMain {
     }
 
     private static void cadastrarPelaEspecialidade() {
-        medicoService.buscaEspecialidade();
+        consultaService.cadastrarPelaEspecialidade();
     }
 
     private static void bloquearHorario() {
@@ -60,9 +63,7 @@ public class ConsultasMain {
     }
 
     private static void agendar() {
-      consultaService.agendar();
-//      var medico = medicoService.procurarMedico("Gabriel Barbosa");
-//        System.out.println(medico);
+       consultaService.agendar();
 
     }
 

@@ -6,7 +6,6 @@ import org.example.arm.medico.Medico;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class MedicoService {
 
@@ -88,13 +87,6 @@ public class MedicoService {
         }
     }
 
-    public void buscaEspecialidade() {
-        System.out.println("Informe a especialidade desejada:");
-        Especialidade especialidade = Especialidade.valueOf(scanner.nextLine().toUpperCase().trim());
-        var medico = procurarMedicoEspecialidade(especialidade);
-        System.out.println(medico.toString());
-    }
-
     // aqui retorna todos os médicos, os imutaveis tbm, mas n é possivel mudar os dados deles
     public List<Medico> recuperarMedico() {
         String caminho = "C:\\meuscode\\consultasLp2\\medicos.txt";
@@ -174,14 +166,10 @@ public class MedicoService {
         horarioBlock.add(horarioBloqueio);
         medico.setHorarioBloqueado(horarioBlock);
         medicoList.stream().forEach(System.out::println);
-        try {
-            salvarAlteracoes();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        salvarAlteracoes();
     }
 
-    private void salvarAlteracoes() throws IOException {
+    public void salvarAlteracoes() {
         String caminho = "C:\\meuscode\\consultasLp2\\medicos.txt";
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho))) {
             try {
@@ -198,13 +186,23 @@ public class MedicoService {
                 throw new RuntimeException(e);
             }
 
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
 
+    public void retornarEspecialidade() {
+        if (medicoList.isEmpty()) {
+            recuperarMedico();
+        }
+        for (Medico medico : medicoList) {
+            System.out.println(medico.getEspecialidade());
+        }
+    }
 
 
-    private Medico procurarMedicoEspecialidade(Especialidade especialidade) {
+    public  Medico procurarMedicoEspecialidade(Especialidade especialidade) {
         if (medicoList.isEmpty()) {
             recuperarMedico();
         }
@@ -218,12 +216,12 @@ public class MedicoService {
         return null;
     }
 
-    public Medico procurarMedico(String nome) {
+    public Medico procurarMedico(String name) {
+        String nome = name;
         if (medicoList.isEmpty()) {
             recuperarMedico();
         }
         for (Medico medico : medicoList) {
-          //  System.out.println("Verificando médico: " + medico.getNome()); // Depuração
             if (medico.getNome().trim().equalsIgnoreCase(nome)) {
                 return medico;
             }

@@ -42,50 +42,45 @@ public class PacienteService {
     }
 
     private List<Paciente> recuperarPaciente() {
-        BufferedReader br = null;
         String path = "C:\\meuscode\\consultasLp2\\paciente.txt";
-        try {
-            br = new BufferedReader(new FileReader(path));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        String linha = null;
-        try {
-            linha = br.readLine();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+            String linha = br.readLine();
 
-        while(linha!=null){
+            while (linha != null){
+                linha = linha.replace("Paciente{", "").replace("}", "");
+                String[] vetor = linha.split(","); // Divide os campos com base na vírgula
 
-            linha = linha.replace("Paciente{", "").replace("}", ""); // troca Paciente{ por uma Strin vazia e a chave } por outra String vazia
-            String [] vetor = linha.split(","); // armazena o dado ate a virgula
-            String nome = vetor[0].split("=")[1].replace("'", "");  // pega o dado da linha 0 coluna 1 ate o = e troca a aspa simples por uma String vazia!!!!
-            String sexo = vetor[1].split("=")[1].replace("'", "");
-            Integer idade = Integer.valueOf(vetor[2].split("=")[1].replace("'", ""));
-            Paciente paciente = new Paciente(nome, sexo, idade);
-            pacientes.add(paciente);
-            try {
+                String nome = vetor[0].split("=")[1].replace("'", "");
+                String sexo = vetor[1].split("=")[1].replace("'", "");
+                Integer idade = Integer.valueOf(vetor[2].split("=")[1].replace("'", ""));
+
+                Paciente paciente = new Paciente(nome, sexo, idade);
+                pacientes.add(paciente);
                 linha = br.readLine();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
             }
+        } catch (FileNotFoundException e) {
+            System.err.println("Arquivo não encontrado: " + path);
+        } catch (IOException e) {
+            throw new RuntimeException("Erro ao ler o arquivo", e);
         }
         return pacientes;
     }
 
-public Paciente procurarPaciente(String name){
 
+   public Paciente procurarPaciente(String nome){
         if(pacientes.isEmpty()){
             recuperarPaciente();
-        }
-        for (Paciente paciente:pacientes){
-            if(paciente.getNome().equalsIgnoreCase(name)){
-                return paciente;
+            if(pacientes.isEmpty()){
+                cadastrarPaciente();
             }
         }
-    System.out.println("Paciente não encontrado!");
+
+        for (Paciente p:pacientes){
+            if(p.getNome().trim().equalsIgnoreCase(nome.trim())){
+                return p;
+            }
+        }
         return null;
-}
+   }
 
 }
