@@ -1,6 +1,6 @@
 package org.example.arm;
 
-import org.example.arm.paciente.Paciente;
+import org.example.arm.service.ConsultaService;
 import org.example.arm.service.MedicoService;
 import org.example.arm.service.PacienteService;
 
@@ -9,9 +9,10 @@ import java.util.Scanner;
 public class Principal {
 
   static   MedicoService medicoService = new MedicoService();
+  static ConsultaService consultaService = new ConsultaService();
 
     public static void main(String[] args) {
-        medicoService.retornarMedicoImutaveis();
+       medicoService.retornarMedicoImutaveis();
         boolean continuar = true;
         while (continuar) {
             menu();
@@ -59,6 +60,9 @@ public class Principal {
     }
 
     private static void agendar() {
+      consultaService.agendar();
+//      var medico = medicoService.procurarMedico("Gabriel Barbosa");
+//        System.out.println(medico);
 
     }
 

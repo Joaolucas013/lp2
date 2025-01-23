@@ -1,2 +1,3 @@
-Paciente{nome='teste', sexo='masc', idade=23}
-Paciente{nome='testee', sexo='feminino', idade=23}
+Paciente{nome='joao lucas da silva correia', sexo='masculino', idade=23}
+Paciente{nome='reus', sexo='masculino', idade=23}
+Paciente{nome='eminem', sexo='masculino', idade=23}

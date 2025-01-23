@@ -74,6 +74,18 @@ public class PacienteService {
         return pacientes;
     }
 
+public Paciente procurarPaciente(String name){
 
+        if(pacientes.isEmpty()){
+            recuperarPaciente();
+        }
+        for (Paciente paciente:pacientes){
+            if(paciente.getNome().equalsIgnoreCase(name)){
+                return paciente;
+            }
+        }
+    System.out.println("Paciente não encontrado!");
+        return null;
+}
 
 }

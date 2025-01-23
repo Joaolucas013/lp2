@@ -2,37 +2,27 @@ package org.example.arm.medico;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 public class Medico {
+
     private String nome;
     private String crm;
     private Especialidade especialidade;
-    private LocalDateTime consulta;
-    private LocalDateTime disponibilidade;
-    private LocalDateTime bloqueado;
-    private LocalDateTime descanso;
+    private List<LocalDateTime> horariosDisponiveis;
+    private  List<LocalDateTime> horariosDescanso;
+    private  List<LocalDateTime> horarioBloqueado;
 
-
-    public Medico(String nome, String crm, Especialidade especialidade, LocalDateTime consulta, LocalDateTime disponibilidade, LocalDateTime descanso) {
+    public Medico(String nome, String crm, Especialidade especialidade, List<LocalDateTime> horariosDisponiveis, List<LocalDateTime> horariosDescanso, List<LocalDateTime> horarioBloqueado) {
         this.nome = nome;
         this.crm = crm;
         this.especialidade = especialidade;
-        this.consulta = consulta;
-        this.disponibilidade = disponibilidade;
-        this.bloqueado = LocalDateTime.now().with(DayOfWeek.SUNDAY); // domingo bloqueado
-        this.descanso = descanso;
+        this.horariosDisponiveis = horariosDisponiveis;
+        this.horariosDescanso = horariosDescanso;
+        this.horarioBloqueado = horarioBloqueado;
     }
 
-    public Medico(String nome, String crm, Especialidade especialidade, LocalDateTime consulta, LocalDateTime disponibilidade, LocalDateTime bloqueado, LocalDateTime descanso) {
-        this.nome = nome;
-        this.crm = crm;
-        this.especialidade = especialidade;
-        this.consulta = consulta;
-        this.disponibilidade = disponibilidade;
-        this.bloqueado = bloqueado;
-        this.descanso = descanso;
-    }
 
     public String getNome() {
         return nome;
@@ -58,28 +48,29 @@ public class Medico {
         this.especialidade = especialidade;
     }
 
-    public LocalDateTime getConsulta() {
-        return consulta;
+    public List<LocalDateTime> getHorariosDisponiveis() {
+        return horariosDisponiveis;
     }
 
-    public void setConsulta(LocalDateTime consulta) {
-        this.consulta = consulta;
+    public void setHorariosDisponiveis(List<LocalDateTime> horariosDisponiveis) {
+        this.horariosDisponiveis = horariosDisponiveis;
     }
 
-    public LocalDateTime getDisponibilidade() {
-        return disponibilidade;
+
+    public List<LocalDateTime> getHorariosDescanso() {
+        return horariosDescanso;
     }
 
-    public void setDisponibilidade(LocalDateTime disponibilidade) {
-        this.disponibilidade = disponibilidade;
+    public void setHorariosDescanso(List<LocalDateTime> horariosDescanso) {
+        this.horariosDescanso = horariosDescanso;
     }
 
-    public LocalDateTime getBloqueado() {
-        return bloqueado;
+    public List<LocalDateTime> getHorarioBloqueado() {
+        return horarioBloqueado;
     }
 
-    public void setBloqueado(LocalDateTime bloqueado) {
-        this.bloqueado = bloqueado;
+    public void setHorarioBloqueado(List<LocalDateTime> horarioBloqueado) {
+        this.horarioBloqueado = horarioBloqueado;
     }
 
     @Override
@@ -88,10 +79,9 @@ public class Medico {
                 "nome='" + nome + '\'' +
                 ", crm='" + crm + '\'' +
                 ", especialidade=" + especialidade +
-                ", consulta=" + consulta +
-                ", disponibilidade=" + disponibilidade +
-                ", bloqueado=" + bloqueado +
-                ", descanso=" + descanso +
+                ", horariosDisponiveis=" + horariosDisponiveis +
+                ", horariosDescanso=" + horariosDescanso +
+                ", horarioBloqueado=" + horarioBloqueado +
                 '}';
     }
 

@@ -4,6 +4,7 @@ import org.example.arm.medico.Medico;
 import org.example.arm.paciente.Paciente;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Consulta {
 
@@ -48,5 +49,17 @@ public class Consulta {
                 ", medico=" + medico +
                 ", paciente=" + paciente +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Consulta consulta = (Consulta) o;
+        return Objects.equals(dataConsulta, consulta.dataConsulta) && Objects.equals(medico, consulta.medico) && Objects.equals(paciente, consulta.paciente);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(dataConsulta, medico, paciente);
     }
 }
