@@ -1,5 +1,6 @@
 package org.example.arm.service;
 
+import org.example.arm.exception.ConsultaException;
 import org.example.arm.medico.Especialidade;
 import org.example.arm.medico.Medico;
 
@@ -143,30 +144,32 @@ public class MedicoService {
 
 
     public void bloquearHorario() {
-        medicoList.stream().forEach(System.out::println);
+        if (medicoList.isEmpty()) {
+            recuperarMedico();
+        }
 
+        if(medicoList.isEmpty()){
+          throw new ConsultaException("Não há medicos disponíveis para bloqueio de horário!");
+        }
+        medicoList.stream().forEach(System.out::println);
         System.out.println("Informe o nome do médico!");
         String nome = scanner.nextLine();
         var medico = procurarMedico(nome);
+
         if (medico == null) {
-            throw new RuntimeException();
-        }
-        for (int i = 0; i < medicoImutaveis.size(); i++) {
-            Medico medico1 = medicoImutaveis.get(i);
-            if (medico.getNome().equalsIgnoreCase(String.valueOf(medico1.getNome()))) {
-                System.out.println("Não é permitido alterar dados dos médicos imutáveis");
-                throw new RuntimeException();
-            }
+            throw new ConsultaException("Médico não encontrado!");
         }
 
         System.out.println("Informe o dia e horario do bloqueio para consulta");
         LocalDateTime horarioBloqueio = LocalDateTime.parse(scanner.nextLine());
-        List<LocalDateTime> horarioBlock = new ArrayList<>();
-        horarioBlock.add(horarioBloqueio);
-        medico.setHorarioBloqueado(horarioBlock);
+        List<LocalDateTime> todosHorariosBlock = medico.getHorarioBloqueado();
+        todosHorariosBlock.add(horarioBloqueio);
+        medico.setHorarioBloqueado(todosHorariosBlock);
+
         medicoList.stream().forEach(System.out::println);
         salvarAlteracoes();
     }
+
 
     public void salvarAlteracoes() {
         String caminho = "C:\\meuscode\\consultasLp2\\medicos.txt";
