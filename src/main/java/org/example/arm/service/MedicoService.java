@@ -216,12 +216,12 @@ public class MedicoService {
     }
 
     public Medico procurarMedico(String name) {
-        String nome = name;
+
         if (medicoList.isEmpty()) {
             recuperarMedico();
         }
         for (Medico medico : medicoList) {
-            if (medico.getNome().trim().equalsIgnoreCase(nome)) {
+            if (medico.getNome().trim().equalsIgnoreCase(name)) {
                 return medico;
             }
         }
@@ -439,4 +439,8 @@ public class MedicoService {
         medicoImutaveis.stream().forEach(System.out::println);
     }
 
+    public List<Medico> retornarLista(){
+        medicoList.stream().forEach(System.out::println);
+        return medicoList;
+    }
 }

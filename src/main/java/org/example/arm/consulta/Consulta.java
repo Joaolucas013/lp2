@@ -46,8 +46,8 @@ public class Consulta {
     public String toString() {
         return "Consulta{" +
                 "horario consulta=" + dataConsulta +
-                ", medico=" + medico +
                 ", paciente=" + paciente +
+                ", medico=" + medico +
                 '}';
     }
 

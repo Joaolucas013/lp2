@@ -24,10 +24,10 @@ public class ConsultaService {
 
     public void agendar() {
         System.out.println("Informe o nome do paciente:");
-        String nome = scanner.nextLine().trim();
+        String nome = scanner.nextLine();
         var paciente = pacienteService.procurarPaciente(nome);
 
-        medicoService.medicoList.stream().forEach(System.out::println);
+        medicoService.retornarLista();
         System.out.println("Escolha um médico!");
         String name = scanner.nextLine();
         Medico medico = medicoService.procurarMedico(name);

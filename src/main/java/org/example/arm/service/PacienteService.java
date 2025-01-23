@@ -74,14 +74,13 @@ public class PacienteService {
         }
 
         for (Paciente p : pacientes) {
-            if (p.getNome().trim().equalsIgnoreCase(nome.trim())) {
+            if (p.getNome().trim().equalsIgnoreCase(nome)) {
                 return p;
-            } else if (!p.getNome().trim().equalsIgnoreCase(nome.trim())) {
-                var paciente = cadastrarPaciente();
-                return paciente;
             }
         }
-        return null;
+
+        Paciente paciente = cadastrarPaciente();
+        return paciente;
     }
 
 }
