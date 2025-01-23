@@ -1,5 +1,0 @@
-Medico{nome='Joao', crm='1234', especialidade=CARDIOLOGIA, horariosDisponiveis=[2025-02-16T09:00, 2025-02-16T10:00, 2025-02-16T16:40], horariosDescanso=[2025-02-28T16:00], horarioBloqueado=[2025-02-16T11:00]}
-Medico{nome='Luiz Gabriel', crm='1122', especialidade=ORTOPEDIA, horariosDisponiveis=[2025-02-18T11:00, 2025-02-18T12:00, 2025-02-18T15:00], horariosDescanso=[2025-02-17T09:00], horarioBloqueado=[2025-02-18T13:00]}
-Medico{nome='Gabriel Silvestre', crm='3344', especialidade=NEUROLOGIA, horariosDisponiveis=[2025-02-19T07:00, 2025-02-19T08:00, 2025-02-19T11:00], horariosDescanso=[2025-02-23T16:00], horarioBloqueado=[2025-02-19T09:00]}
-Medico{nome='Láiza Kevelly', crm='5678', especialidade=DERMATOLOGIA, horariosDisponiveis=[2025-02-16T09:00, 2025-02-16T10:00, 2025-02-16T13:00], horariosDescanso=[2025-02-17T15:00], horarioBloqueado=[2025-02-16T11:00]}
-Medico{nome='Gabriel Barbosa', crm='5678', especialidade=DERMATOLOGIA, horariosDisponiveis=[2025-02-17T09:00, 2025-02-17T10:00, 2025-02-17T13:00], horariosDescanso=[2025-02-17T16:00], horarioBloqueado=[2025-02-17T15:00]}

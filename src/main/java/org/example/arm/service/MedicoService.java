@@ -240,15 +240,26 @@ public class MedicoService {
                 "1234",
                 Especialidade.CARDIOLOGIA,
                 Arrays.asList(
-                        LocalDateTime.parse("2025-02-16T09:00"),
-                        LocalDateTime.parse("2025-02-16T10:00"),
-                        LocalDateTime.parse("2025-02-16T16:40")
+                        LocalDateTime.parse("2025-02-17T09:00"),
+                        LocalDateTime.parse("2025-02-18T11:00"),
+                        LocalDateTime.parse("2025-02-19T13:40"),
+                        LocalDateTime.parse("2025-02-20T14:10"),
+                        LocalDateTime.parse("2025-02-21T15:10"),
+                        LocalDateTime.parse("2025-02-22T16:10")
                 ),
                 Arrays.asList(
-                        LocalDateTime.parse("2025-02-28T16:00")
+                        LocalDateTime.parse("2025-02-17T08:00"),
+                        LocalDateTime.parse("2025-02-18T09:30"),
+                        LocalDateTime.parse("2025-02-19T10:00"),
+                        LocalDateTime.parse("2025-02-20T11:30"),
+                        LocalDateTime.parse("2025-02-21T16:50")
                 ),
                 Arrays.asList(
-                        LocalDateTime.parse("2025-02-16T11:00")
+                        LocalDateTime.parse("2025-02-17T18:00"),
+                        LocalDateTime.parse("2025-02-18T18:00"),
+                        LocalDateTime.parse("2025-02-19T18:00"),
+                        LocalDateTime.parse("2025-02-20T18:00"),
+                        LocalDateTime.parse("2025-02-21T18:00")
                 )
         );
 
@@ -257,15 +268,31 @@ public class MedicoService {
                 "1122",
                 Especialidade.ORTOPEDIA,
                 Arrays.asList(
-                        LocalDateTime.parse("2025-02-18T11:00"),
-                        LocalDateTime.parse("2025-02-18T12:00"),
-                        LocalDateTime.parse("2025-02-18T15:00")
+                        LocalDateTime.parse("2025-02-19T07:00"),
+                        LocalDateTime.parse("2025-02-19T08:00"),
+                        LocalDateTime.parse("2025-02-19T11:00"),
+                        LocalDateTime.parse("2025-02-17T08:30"),
+                        LocalDateTime.parse("2025-02-18T09:00"),
+                        LocalDateTime.parse("2025-02-19T10:00"),
+                        LocalDateTime.parse("2025-02-20T11:25"),
+                        LocalDateTime.parse("2025-02-21T13:30")
                 ),
                 Arrays.asList(
-                        LocalDateTime.parse("2025-02-17T09:00")
+                        LocalDateTime.parse("2025-02-23T12:00"),
+
+                        LocalDateTime.parse("2025-02-24T12:00"),
+                        LocalDateTime.parse("2025-02-25T12:00"),
+                        LocalDateTime.parse("2025-02-26T12:00"),
+                        LocalDateTime.parse("2025-02-27T12:00"),
+                        LocalDateTime.parse("2025-03-04T12:00")
                 ),
                 Arrays.asList(
-                        LocalDateTime.parse("2025-02-18T13:00")
+                        LocalDateTime.parse("2025-02-17T18:00"),
+                        LocalDateTime.parse("2025-02-17T18:00"),
+                        LocalDateTime.parse("2025-02-17T18:00"),
+                        LocalDateTime.parse("2025-02-17T18:00"),
+                        LocalDateTime.parse("2025-02-17T18:00"),
+                        LocalDateTime.parse("2025-02-17T18:00")
                 )
         );
 
@@ -276,13 +303,29 @@ public class MedicoService {
                 Arrays.asList(
                         LocalDateTime.parse("2025-02-19T07:00"),
                         LocalDateTime.parse("2025-02-19T08:00"),
-                        LocalDateTime.parse("2025-02-19T11:00")
+                        LocalDateTime.parse("2025-02-19T11:00"),
+                        LocalDateTime.parse("2025-02-17T08:30"),
+                        LocalDateTime.parse("2025-02-18T09:00"),
+                        LocalDateTime.parse("2025-02-19T10:00"),
+                        LocalDateTime.parse("2025-02-20T11:25"),
+                        LocalDateTime.parse("2025-02-21T13:30")
                 ),
                 Arrays.asList(
-                        LocalDateTime.parse("2025-02-23T16:00")
+                        LocalDateTime.parse("2025-02-23T12:00"),
+
+                        LocalDateTime.parse("2025-02-24T12:00"),
+                        LocalDateTime.parse("2025-02-25T12:00"),
+                        LocalDateTime.parse("2025-02-26T12:00"),
+                        LocalDateTime.parse("2025-02-27T12:00"),
+                        LocalDateTime.parse("2025-03-04T12:00")
                 ),
                 Arrays.asList(
-                        LocalDateTime.parse("2025-02-19T09:00")
+                        LocalDateTime.parse("2025-02-17T18:00"),
+                        LocalDateTime.parse("2025-02-17T18:00"),
+                        LocalDateTime.parse("2025-02-17T18:00"),
+                        LocalDateTime.parse("2025-02-17T18:00"),
+                        LocalDateTime.parse("2025-02-17T18:00"),
+                        LocalDateTime.parse("2025-02-17T18:00")
                 )
         );
 
@@ -291,15 +334,26 @@ public class MedicoService {
                 "5678",
                 Especialidade.DERMATOLOGIA,
                 Arrays.asList(
-                        LocalDateTime.parse("2025-02-16T09:00"),
-                        LocalDateTime.parse("2025-02-16T10:00"),
-                        LocalDateTime.parse("2025-02-16T13:00")
+                        LocalDateTime.parse("2025-02-17T08:00"),
+                        LocalDateTime.parse("2025-02-18T09:00"),
+                        LocalDateTime.parse("2025-02-19T10:00"),
+                        LocalDateTime.parse("2025-02-20T11:00"),
+                        LocalDateTime.parse("2025-02-21T13:30")
                 ),
                 Arrays.asList(
-                        LocalDateTime.parse("2025-02-17T15:00")
+                        LocalDateTime.parse("2025-02-17T12:00"),
+                        LocalDateTime.parse("2025-02-18T12:00"),
+                        LocalDateTime.parse("2025-02-19T12:00"),
+                        LocalDateTime.parse("2025-02-20T12:00"),
+                        LocalDateTime.parse("2025-02-21T12:00")
+
                 ),
                 Arrays.asList(
-                        LocalDateTime.parse("2025-02-16T11:00")
+                        LocalDateTime.parse("2025-02-17T18:00"),
+                        LocalDateTime.parse("2025-02-18T18:00"),
+                        LocalDateTime.parse("2025-02-19T18:00"),
+                        LocalDateTime.parse("2025-02-20T18:00"),
+                        LocalDateTime.parse("2025-02-21T18:00")
                 )
         );
 
@@ -309,14 +363,26 @@ public class MedicoService {
                 Especialidade.DERMATOLOGIA,
                 Arrays.asList(
                         LocalDateTime.parse("2025-02-17T09:00"),
-                        LocalDateTime.parse("2025-02-17T10:00"),
-                        LocalDateTime.parse("2025-02-17T13:00")
+                        LocalDateTime.parse("2025-02-18T10:00"),
+                        LocalDateTime.parse("2025-02-19T13:00"),
+                        LocalDateTime.parse("2025-02-20T14:00"),
+                        LocalDateTime.parse("2025-02-21T15:00")
                 ),
                 Arrays.asList(
-                        LocalDateTime.parse("2025-02-17T16:00")
+                        LocalDateTime.parse("2025-02-23T12:00"),
+
+                        LocalDateTime.parse("2025-02-24T12:00"),
+                        LocalDateTime.parse("2025-02-25T12:00"),
+                        LocalDateTime.parse("2025-02-26T12:00"),
+                        LocalDateTime.parse("2025-02-27T12:00"),
+                        LocalDateTime.parse("2025-03-04T12:00")
                 ),
                 Arrays.asList(
-                        LocalDateTime.parse("2025-02-17T15:00")
+                        LocalDateTime.parse("2025-02-17T18:00"),
+                        LocalDateTime.parse("2025-02-18T18:00"),
+                        LocalDateTime.parse("2025-02-19T18:00"),
+                        LocalDateTime.parse("2025-02-20T18:00"),
+                        LocalDateTime.parse("2025-02-21T18:00")
                 )
         );
 
@@ -372,12 +438,12 @@ public class MedicoService {
     public void retornarMedicoImutaveis() {
 
         if (medicoImutaveis.isEmpty()) {
-           recuperarMedico();
+            recuperarMedico();
             if (medicoImutaveis.isEmpty()) {
                 iniciarMedicos();
             }
         }
-medicoImutaveis.stream().forEach(System.out::println);
+        medicoImutaveis.stream().forEach(System.out::println);
     }
 
 }

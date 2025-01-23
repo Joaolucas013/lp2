@@ -32,25 +32,43 @@ public class ConsultaService {
         System.out.println("Escolha um médico!");
         String nome = scanner.nextLine();
         Medico medico = medicoService.procurarMedico(nome);
-        System.out.println(medico);
-        Medico  Medicoprocurado = new Medico(medico.getNome(), medico.getCrm(), medico.getEspecialidade(), medico.getHorariosDisponiveis(), medico.getHorariosDescanso(), medico.getHorarioBloqueado());
+       // Medico  Medicoprocurado = new Medico(medico.getNome(), medico.getCrm(), medico.getEspecialidade(), medico.getHorariosDisponiveis(), medico.getHorariosDescanso(), medico.getHorarioBloqueado());
+
         if(medico==null){
             throw  new ConsultaException("Médico não encontrado!!!");
         }
 
-        // lista todos os horarios disponiveis na semana!
-        medico.getHorariosDisponiveis().stream().forEach(System.out::println);
+        if(!medico.getHorariosDisponiveis().isEmpty()){
+            LocalDateTime horario = medico.getHorariosDisponiveis().get(0);
+            medico.getHorariosDisponiveis().remove(horario);
+            Consulta consulta = new Consulta(horario, medico, paciente);
+            salvarConsulta(consulta);
+        } else{
+            System.out.println("Não há mais horários disponíveis para a semana. Escolha um horario:");
+            LocalDateTime horarioPaciente = LocalDateTime.parse(scanner.nextLine());
 
-        if(medico.getHorariosDisponiveis().isEmpty()){
-            throw new ConsultaException("Não há horários disponíveis na semana!");
+            // verificando se horario não coincide com o horario de bloqueio ou horario de descanso
+            LocalDateTime outroHorario =  validarHorario(horarioPaciente, medico);
+
+            List<LocalDateTime> horarioReservado = new ArrayList<>();
+            horarioReservado.add(outroHorario);
+            medico.setHorariosDisponiveis(horarioReservado);
+            Consulta consulta = new Consulta(outroHorario, medico, paciente);
+            salvarConsulta(consulta);
         }
-        LocalDateTime horario = medico.getHorariosDisponiveis().get(0);
-        medico.getHorariosDisponiveis().remove(horario);
 
-        Consulta consulta = new Consulta(horario, medico, paciente);
-        salvarConsulta(consulta);
 
     }
+
+    private LocalDateTime validarHorario(LocalDateTime horarioPaciente, Medico medico) {
+        if ((medico.getHorariosDescanso().equals(horarioPaciente)) || (medico.getHorarioBloqueado().equals(horarioPaciente))) {
+            System.out.println(horarioPaciente + " Horário indisponível, escolha outro horário!");
+            LocalDateTime outroHorario = LocalDateTime.parse(scanner.nextLine());
+            return outroHorario;
+        }
+        return horarioPaciente;
+    }
+
 
     private void salvarConsulta(Consulta consulta) {
         String path = "C:\\meuscode\\consultasLp2\\consultas.txt";
