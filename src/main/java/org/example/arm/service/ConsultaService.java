@@ -82,10 +82,10 @@ public class ConsultaService {
 
         if(!medico.getHorariosDisponiveis().isEmpty()){
             LocalDateTime horario = medico.getHorariosDisponiveis().get(0);
-            medico.getHorariosDisponiveis().remove(horario);
             Consulta consulta = new Consulta(horario, medico, paciente);
-            ConsultaDto consultaDto = new ConsultaDto(consulta.getPaciente(), consulta.getMedico(), consulta.getDataConsulta());
-            System.out.println("Consulta agendada com sucesso!" + consultaDto);
+            ConsultaDto consultaDto = new ConsultaDto(consulta.getPaciente().getNome(), consulta.getMedico().getNome(), consulta.getMedico().getEspecialidade(), horario);
+            System.out.println("Consulta agendada com sucesso!\n" + consultaDto);
+            medico.getHorariosDisponiveis().remove(horario);
 
             consultas.add(consulta);
             medicoService.salvarAlteracoes();
@@ -100,9 +100,9 @@ public class ConsultaService {
 
             medico.setHorariosDisponiveis(horarioReservado);
             Consulta consulta = new Consulta(outroHorario, medico, paciente);
-            ConsultaDto consultaDto = new ConsultaDto(consulta.getPaciente(), consulta.getMedico(), consulta.getDataConsulta());
-            System.out.println("Consulta agendada com sucesso!" + consultaDto);
+            ConsultaDto consultaDto = new ConsultaDto(consulta.getPaciente().getNome(), consulta.getMedico().getNome(), consulta.getMedico().getEspecialidade(), outroHorario);
 
+            System.out.println("Consulta agendada com sucesso!\n" + consultaDto);
             medicoService.salvarAlteracoes();
             consultas.add(consulta);
 

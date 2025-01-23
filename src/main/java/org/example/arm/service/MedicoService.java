@@ -69,7 +69,7 @@ public class MedicoService {
 
     private void salvarTodosMedicos() throws IOException {
         String caminho = "C:\\meuscode\\consultasLp2\\medicos.txt";
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho))) { // se aqui for true, vai armazenar dados repetidos com informações diferentes!
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho, true))) { // se aqui for true, vai armazenar dados repetidos com informações diferentes!
             try {
                 for (Medico medico : medicoList) {
                     bw.write(medico.toString());
@@ -113,7 +113,6 @@ public class MedicoService {
                 List<LocalDateTime> horarioBloqueado = parseListaHorarios(horarioBloqueadoStr);
 
                 Medico medico = new Medico(nome, crm, especialidade, horariosDisponiveis, horariosDescanso, horarioBloqueado);
-            //    System.out.println("medico: "+medico);
                 if (medicoImutaveis.size() < 5) {
                     medicoImutaveis.add(medico);
                 }
@@ -434,13 +433,9 @@ public class MedicoService {
     }
 
     public void retornarMedicoImutaveis() {
-
-        if (medicoImutaveis.isEmpty()) {
-            recuperarMedico();
-            if (medicoImutaveis.isEmpty()) {
+        if(medicoList.isEmpty()){
                 iniciarMedicos();
             }
-        }
         medicoImutaveis.stream().forEach(System.out::println);
     }
 
