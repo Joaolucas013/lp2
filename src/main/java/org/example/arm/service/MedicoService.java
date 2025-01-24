@@ -15,10 +15,10 @@ public class MedicoService {
    public List<Medico> medicoImutaveis = new ArrayList<>();
    public  Scanner scanner = new Scanner(System.in);
 
-    public void salvarMedico() {
+    public void cadastrarMedico() {
         System.out.println("Informe o nome do médico:");
         String nome = scanner.nextLine();
-        System.out.println("Informe o CRM: ");
+        System.out.println("Informe o CRM:");
         String crm = scanner.nextLine();
         String crmValido = validarCrm(crm);
         System.out.println("Informe  a especialidade");
@@ -70,7 +70,7 @@ public class MedicoService {
 
     private void salvarTodosMedicos() throws IOException {
         String caminho = "C:\\meuscode\\consultasLp2\\medicos.txt";
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho, true))) { // se aqui for true, vai armazenar dados repetidos com informações diferentes!
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho, true))) {
             try {
                 for (Medico medico : medicoList) {
                     bw.write(medico.toString());
@@ -156,17 +156,12 @@ public class MedicoService {
         String nome = scanner.nextLine();
         var medico = procurarMedico(nome);
 
-        if (medico == null) {
-            throw new ConsultaException("Médico não encontrado!");
-        }
-
-        System.out.println("Informe o dia e horario do bloqueio para consulta");
+        System.out.println("Informe o dia  do bloqueio da consulta");
         LocalDateTime horarioBloqueio = LocalDateTime.parse(scanner.nextLine());
         List<LocalDateTime> todosHorariosBlock = medico.getHorarioBloqueado();
         todosHorariosBlock.add(horarioBloqueio);
-        medico.setHorarioBloqueado(todosHorariosBlock);
 
-        medicoList.stream().forEach(System.out::println);
+
         salvarAlteracoes();
     }
 
@@ -194,17 +189,10 @@ public class MedicoService {
     }
 
 
-    public void retornarEspecialidade() {
-        if (medicoList.isEmpty()) {
-            recuperarMedico();
-        }
-        for (Medico medico : medicoList) {
-            System.out.println(medico.getEspecialidade());
-        }
-    }
-
-
     public  Medico procurarMedicoEspecialidade(Especialidade especialidade) {
+       List<Medico> listMedicoEspecialidade = new ArrayList<>();
+        Random r = new Random();
+
         if (medicoList.isEmpty()) {
             recuperarMedico();
         }
@@ -212,14 +200,19 @@ public class MedicoService {
             if (medico.getEspecialidade().equals(especialidade)) {
                 Medico medico1 = new Medico(medico.getNome(), medico.getCrm(), medico.getEspecialidade(),
                         medico.getHorariosDisponiveis(), medico.getHorariosDescanso(), medico.getHorarioBloqueado());
-                return medico1;
+                listMedicoEspecialidade.add(medico1);
             }
         }
-        return null;
+        if(listMedicoEspecialidade.isEmpty()){
+            throw new ConsultaException("Nenhum médico encontrado para especialidade: " + especialidade);
+        }
+
+        Medico m = listMedicoEspecialidade.get(r.nextInt(listMedicoEspecialidade.size()));
+        return m;
     }
 
-    public Medico procurarMedico(String name) {
 
+    public Medico procurarMedico(String name) {
         if (medicoList.isEmpty()) {
             recuperarMedico();
         }
@@ -228,9 +221,81 @@ public class MedicoService {
                 return medico;
             }
         }
-
         System.out.println("Médico não encontrado!");
         return null;
+    }
+
+
+
+    private void salvarMedicoImutaveis() {
+        String caminho = "C:\\meuscode\\consultasLp2\\medicos.txt";
+        try {
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho))) {
+                for (Medico medico : medicoImutaveis) {
+                    bw.write(medico.toString());
+                    bw.newLine();
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("medico salvo com sucesso!");
+    }
+
+    private String validarCrm(String crm) {
+        if (medicoList.isEmpty()) {
+            recuperarMedico();
+        }
+        String novo = "";
+        for (int i = 0; i < medicoList.size(); i++) {
+            Medico m = medicoList.get(i);
+            if (m.getCrm().equals(crm) || crm.length() < 4) {
+                System.out.println("CRM inválido! informe novamente corretamente");
+                String validado = novoCrm(crm);
+                novo = validarCrm(validado);
+                return novo;
+            }
+        }
+        return novo += crm;
+    }
+
+    private String novoCrm(String crm) {
+        System.out.println("Informe o novo crm");
+        String novoCrm = scanner.nextLine().trim();
+        return novoCrm;
+    }
+
+    public void retornarMedicoImutaveis() {
+        if(medicoList.isEmpty()){
+                iniciarMedicos();
+            }
+        medicoImutaveis.stream().forEach(System.out::println);
+    }
+
+
+    public void retornarHashEspecialidade() {
+        Set<Especialidade> listEspecialidade = new HashSet<>();
+        if(medicoList.isEmpty()){
+            recuperarMedico();
+        }
+
+        for (Medico medico : medicoList) {
+            listEspecialidade.add(medico.getEspecialidade());
+        }
+        if (listEspecialidade.isEmpty()) {
+            throw new ConsultaException("Não há nehhuma especialidade disponível no momento!");
+        }
+        listEspecialidade.stream().forEach(System.out::println);
+        System.out.println("Escolha a especialidade");
+
+    }
+
+    public List<Medico> retornarLista(){
+        if(medicoList.isEmpty()){
+            recuperarMedico();
+        }
+        medicoList.stream().forEach(System.out::println);
+        return medicoList;
     }
 
 
@@ -312,7 +377,6 @@ public class MedicoService {
                 ),
                 Arrays.asList(
                         LocalDateTime.parse("2025-02-23T12:00"),
-
                         LocalDateTime.parse("2025-02-24T12:00"),
                         LocalDateTime.parse("2025-02-25T12:00"),
                         LocalDateTime.parse("2025-02-26T12:00"),
@@ -331,7 +395,7 @@ public class MedicoService {
 
         Medico med4 = new Medico(
                 "Láiza Kevelly",
-                "5678",
+                "5108",
                 Especialidade.DERMATOLOGIA,
                 Arrays.asList(
                         LocalDateTime.parse("2025-02-17T08:00"),
@@ -394,56 +458,4 @@ public class MedicoService {
         salvarMedicoImutaveis();
     }
 
-    private void salvarMedicoImutaveis() {
-        String caminho = "C:\\meuscode\\consultasLp2\\medicos.txt";
-        try {
-            try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho))) {
-                for (Medico medico : medicoImutaveis) {
-                    bw.write(medico.toString());
-                    bw.newLine();
-                }
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        System.out.println("medico salvo com sucesso!");
-    }
-
-    private String validarCrm(String crm) {
-        if (medicoList.isEmpty()) {
-            recuperarMedico();
-        }
-
-        String novo = "";
-
-        for (int i = 0; i < medicoList.size(); i++) {
-            Medico m = medicoList.get(i);
-
-            if (m.getCrm().equals(crm) || crm.length() < 4) {
-                System.out.println("CRM inválido! informe novamente corretamente");
-                String validado = novoCrm(crm);
-                novo = validarCrm(validado);
-                return novo;
-            }
-        }
-        return novo += crm;
-    }
-
-    private String novoCrm(String crm) {
-        System.out.println("Informe o novo crm");
-        String novoCrm = scanner.nextLine().trim();
-        return novoCrm;
-    }
-
-    public void retornarMedicoImutaveis() {
-        if(medicoList.isEmpty()){
-                iniciarMedicos();
-            }
-        medicoImutaveis.stream().forEach(System.out::println);
-    }
-
-    public List<Medico> retornarLista(){
-        medicoList.stream().forEach(System.out::println);
-        return medicoList;
-    }
 }

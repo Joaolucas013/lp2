@@ -10,9 +10,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class ConsultaService {
 
@@ -38,55 +36,40 @@ public class ConsultaService {
     private LocalDateTime validarHorario(LocalDateTime horarioPaciente, Medico medico) {
 
         if ((medico.getHorariosDescanso().equals(horarioPaciente)) || (medico.getHorarioBloqueado().equals(horarioPaciente))) {
-            System.out.println(horarioPaciente + " Horário indisponível, escolha outro horário!");
+            System.out.println(horarioPaciente + " Horário indisponivel, escolha outro horário!");
             LocalDateTime outroHorario = LocalDateTime.parse(scanner.nextLine());
-            validarHorario(outroHorario, medico); // verifica novamert se o horario não fere a validacao
+            validarHorario(outroHorario, medico); // verifica novamebte se o horario não fere a validacao
             return outroHorario;
         }
         return horarioPaciente;
     }
 
 
-    public  void salvarConsulta() {
-        String path = "C:\\meuscode\\consultasLp2\\consultas.txt";
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(path, true))) {
-            for (Consulta c: consultas){
-                bw.write(c.toString());
-                bw.newLine();
-            }
-            System.out.println("Consultas salvas com sucesso!");
-        } catch (IOException e) {
-            throw new RuntimeException("Erro: " + e.getMessage());
-        }
-    }
-
     public void cadastrarPelaEspecialidade() {
         System.out.println("Informe o nome do paciente:");
         String name = scanner.nextLine().trim();
-
         var paciente = pacienteService.procurarPaciente(name);
-        if(paciente==null){
-            pacienteService.cadastrarPaciente();
-        }
-        medicoService.retornarEspecialidade();
-        System.out.println("escolha a especialidade:");
-        Especialidade especialidade = Especialidade.valueOf(scanner.nextLine());
+
+        medicoService.retornarHashEspecialidade();
+        Especialidade especialidade = Especialidade.valueOf(scanner.nextLine().toUpperCase());
        var medico =  medicoService.procurarMedicoEspecialidade(especialidade);
 
        agendarConsulta(paciente, medico);
+
     }
+
+
 
     private void agendarConsulta(Paciente paciente, Medico medico) {
 
         if(!medico.getHorariosDisponiveis().isEmpty()){
-            LocalDateTime horario = medico.getHorariosDisponiveis().get(0);
+            LocalDateTime horario = medico.getHorariosDisponiveis().remove(0);
             Consulta consulta = new Consulta(horario, medico, paciente);
             DadosConsulta consultaDto = new DadosConsulta(consulta.getPaciente().getNome(), consulta.getMedico().getNome(), consulta.getMedico().getEspecialidade(), horario);
             System.out.println("Consulta agendada com sucesso!\n" + consultaDto);
-            medico.getHorariosDisponiveis().remove(horario);
-
-            consultas.add(consulta);
             medicoService.salvarAlteracoes();
+            consultas.add(consulta);
+
 
         } else{
             System.out.println("Não há mais horários disponíveis para a semana. Escolha um horario:");
@@ -103,9 +86,22 @@ public class ConsultaService {
             System.out.println("Consulta agendada com sucesso!\n" + consultaDto);
             medicoService.salvarAlteracoes();
             consultas.add(consulta);
-
-
         }
 
     }
+
+    public void salvarConsultas()  {
+         String caminho = "C:\\meuscode\\consultasLp2\\consultas.txt";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(caminho, true))) {
+            for (Consulta consulta:consultas) {
+                writer.write(consultas.toString());
+                writer.newLine();
+            }
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+
 }

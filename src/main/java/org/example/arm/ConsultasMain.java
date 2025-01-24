@@ -13,7 +13,7 @@ public class ConsultasMain {
   static PacienteService pacienteService = new PacienteService();
 
     public static void main(String[] args) {
-       medicoService.retornarMedicoImutaveis();
+       //medicoService.retornarMedicoImutaveis();
         boolean continuar = true;
         while (continuar) {
             menu();
@@ -36,7 +36,7 @@ public class ConsultasMain {
                     break;
                 case 6:
                     System.out.println("Salvando consulta!");
-                    consultaService.salvarConsulta();
+                    consultaService.salvarConsultas();
                     System.out.println("Bye...");
                     continuar= false;
                     break;
@@ -51,7 +51,7 @@ public class ConsultasMain {
     }
 
     private static void cadastrarMedico() {
-        medicoService.salvarMedico();
+        medicoService.cadastrarMedico();
     }
 
     private static void cadastrarPelaEspecialidade() {

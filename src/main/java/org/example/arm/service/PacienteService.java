@@ -78,7 +78,7 @@ public class PacienteService {
                 return p;
             }
         }
-
+        System.out.println("Paciente não cadastrado, cadastre-se!");
         Paciente paciente = cadastrarPaciente();
         return paciente;
     }
