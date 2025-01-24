@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 public class ConsultaService {
 
-    List<Consulta> consultas = new ArrayList<>();
+    List<DadosConsulta> consultas = new ArrayList<>();
    static MedicoService medicoService = new MedicoService();
    static PacienteService pacienteService = new PacienteService();
     Scanner scanner = new Scanner(System.in);
@@ -69,7 +69,7 @@ public class ConsultaService {
             DadosConsulta consultaDto = new DadosConsulta(consulta.getPaciente().getNome(), consulta.getMedico().getNome(), consulta.getMedico().getEspecialidade(), horario);
             System.out.println("Consulta agendada com sucesso!\n" + consultaDto);
             medicoService.salvarAlteracoes();
-            consultas.add(consulta);
+            consultas.add(consultaDto);
             salvarConsultas(consulta);
 
 
@@ -84,7 +84,7 @@ public class ConsultaService {
             medico.setHorariosDisponiveis(horarioReservado);
             Consulta consulta = new Consulta(outroHorario, medico, paciente);
             DadosConsulta consultaDto = new DadosConsulta(consulta.getPaciente().getNome(), consulta.getMedico().getNome(), consulta.getMedico().getEspecialidade(), outroHorario);
-
+            consultas.add(consultaDto);
             System.out.println("Consulta agendada com sucesso!\n" + consultaDto);
             medicoService.salvarAlteracoes();
 
@@ -105,5 +105,6 @@ public class ConsultaService {
 
     public void finalizar() {
         System.out.println("Consultas salvas no arquivo consultas.txt");
+        consultas.stream().forEach(System.out::println);
     }
 }

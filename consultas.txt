@@ -1,2 +1,0 @@
-Consulta{horario consulta=2025-02-17T09:30, paciente=Paciente{nome='eminem', sexo='mascuulino', idade=23}, medico=Joao LucasCARDIOLOGIA1234}
-Consulta{horario consulta=2025-02-17T10:00, paciente=Paciente{nome='teste', sexo='masculino', idade=22}, medico=Joao LucasCARDIOLOGIA1234}
