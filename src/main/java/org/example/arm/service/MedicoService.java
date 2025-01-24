@@ -11,10 +11,10 @@ import java.util.*;
 public class MedicoService {
 
 
-//   public List<Medico> medicoList = new ArrayList<>();
-//   public List<Medico> medicoImutaveis = new ArrayList<>();
-     private List<Medico> medicoList = new ArrayList<>();
-    private List<Medico> medicoImutaveis = new ArrayList<>();
+   public List<Medico> medicoList = new ArrayList<>();
+   public List<Medico> medicoImutaveis = new ArrayList<>();
+//     private List<Medico> medicoList = new ArrayList<>();
+//    private List<Medico> medicoImutaveis = new ArrayList<>();
 
     public  Scanner scanner = new Scanner(System.in);
 
@@ -96,6 +96,7 @@ public class MedicoService {
         String caminho = "C:\\meuscode\\consultasLp2\\medicos.txt";
         try (BufferedReader br = new BufferedReader(new FileReader(caminho))) {
             String linha = br.readLine();
+
             while (linha != null) {
                 linha = linha.replace("Medico{", "").replace("}", "");
                 String[] vetor = linha.split(",\\s*(?![^\\[]*\\])");
@@ -117,13 +118,12 @@ public class MedicoService {
                 List<LocalDateTime> horarioBloqueado = listaHorarios(horarioBlock);
 
                 Medico medico = new Medico(nome, crm, especialidade, horariosDisponiveis, horariosDescanso, horarioBloqueado);
+                medicoList.add(medico);
 
                 if (medicoImutaveis.size() < 5) {
                     medicoImutaveis.add(medico);
                 }
-                medicoList.add(medico);
                 linha = br.readLine();
-
             }
         } catch (IOException e) {
             throw new RuntimeException();
@@ -243,7 +243,6 @@ public class MedicoService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("medico salvo com sucesso!");
     }
 
     private String validarCrm(String crm) {
@@ -270,11 +269,10 @@ public class MedicoService {
     }
 
     public void retornarMedicoImutaveis() {
-        System.out.println("Lista de médicos antes de recuperar os dados do arquivo medico.txt:\n" + medicoImutaveis);
         if(medicoList.isEmpty()){
-            recuperarMedico();
+           iniciarMedicos();
+           recuperarMedico();
         }
-        System.out.println("Lista de médicos depois de recuperar os dados do arquivo medico.txt:\n" + medicoImutaveis);
         medicoImutaveis.stream().forEach(System.out::println);
     }
 
@@ -297,8 +295,8 @@ public class MedicoService {
     }
 
     public List<Medico> retornarLista(){
-        if(medicoList.isEmpty()){
-            recuperarMedico();
+        if(medicoImutaveis.isEmpty()){
+            iniciarMedicos();
         }
         medicoList.stream().forEach(System.out::println);
         return medicoList;
@@ -307,23 +305,38 @@ public class MedicoService {
 
     public void iniciarMedicos() {
         Medico med1 = new Medico(
-                "Joao",
+                "Joao Lucas",
                 "1234",
                 Especialidade.CARDIOLOGIA,
                 Arrays.asList(
-                        LocalDateTime.parse("2025-02-17T09:00"),
-                        LocalDateTime.parse("2025-02-18T11:00"),
-                        LocalDateTime.parse("2025-02-19T13:40"),
-                        LocalDateTime.parse("2025-02-20T14:10"),
-                        LocalDateTime.parse("2025-02-21T15:10"),
-                        LocalDateTime.parse("2025-02-22T16:10")
+                        LocalDateTime.parse("2025-02-17T09:30"),
+                        LocalDateTime.parse("2025-02-17T10:00"),
+                        LocalDateTime.parse("2025-02-17T11:00"),
+                        LocalDateTime.parse("2025-02-17T14:00"),
+                        LocalDateTime.parse("2025-02-17T15:00"),
+                        LocalDateTime.parse("2025-02-18T09:30"),
+                        LocalDateTime.parse("2025-02-18T10:00"),
+                        LocalDateTime.parse("2025-02-18T14:10"),
+                        LocalDateTime.parse("2025-02-18T15:40"),
+                        LocalDateTime.parse("2025-02-19T16:30"),
+                        LocalDateTime.parse("2025-02-19T08:30"),
+                        LocalDateTime.parse("2025-02-19T09:30"),
+                        LocalDateTime.parse("2025-02-20T14:00"),
+                        LocalDateTime.parse("2025-02-20T15:00"),
+                        LocalDateTime.parse("2025-02-20T08:30"),
+                        LocalDateTime.parse("2025-02-21T09:00"),
+                        LocalDateTime.parse("2025-02-22T14:30"),
+                        LocalDateTime.parse("2025-02-22T16:00"),
+                        LocalDateTime.parse("2025-02-22T10:00"),
+                        LocalDateTime.parse("2025-02-22T16:00")
+
                 ),
                 Arrays.asList(
-                        LocalDateTime.parse("2025-02-17T08:00"),
-                        LocalDateTime.parse("2025-02-18T09:30"),
-                        LocalDateTime.parse("2025-02-19T10:00"),
-                        LocalDateTime.parse("2025-02-20T11:30"),
-                        LocalDateTime.parse("2025-02-21T16:50")
+                        LocalDateTime.parse("2025-02-17T12:00"),
+                        LocalDateTime.parse("2025-02-18T12:00"),
+                        LocalDateTime.parse("2025-02-19T12:00"),
+                        LocalDateTime.parse("2025-02-20T12:00"),
+                        LocalDateTime.parse("2025-02-21T12:00")
                 ),
                 Arrays.asList(
                         LocalDateTime.parse("2025-02-17T18:00"),
@@ -339,31 +352,53 @@ public class MedicoService {
                 "1122",
                 Especialidade.ORTOPEDIA,
                 Arrays.asList(
-                        LocalDateTime.parse("2025-02-19T07:00"),
-                        LocalDateTime.parse("2025-02-19T08:00"),
-                        LocalDateTime.parse("2025-02-19T11:00"),
+                        LocalDateTime.parse("2025-02-17T07:30"),
                         LocalDateTime.parse("2025-02-17T08:30"),
-                        LocalDateTime.parse("2025-02-18T09:00"),
-                        LocalDateTime.parse("2025-02-19T10:00"),
-                        LocalDateTime.parse("2025-02-20T11:25"),
-                        LocalDateTime.parse("2025-02-21T13:30")
-                ),
-                Arrays.asList(
-                        LocalDateTime.parse("2025-02-23T12:00"),
+                        LocalDateTime.parse("2025-02-17T09:30"),
+                        LocalDateTime.parse("2025-02-18T10:30"),
+                        LocalDateTime.parse("2025-02-18T13:30"),
+                        LocalDateTime.parse("2025-02-18T14:00"),
+                        LocalDateTime.parse("2025-02-19T14:30"),
+                        LocalDateTime.parse("2025-02-19T15:00"),
+                        LocalDateTime.parse("2025-02-19T15:30"),
+                        LocalDateTime.parse("2025-02-19T16:00"),
+                        LocalDateTime.parse("2025-02-20T07:30"),
+                        LocalDateTime.parse("2025-02-20T08:30"),
+                        LocalDateTime.parse("2025-02-20T09:30"),
+                        LocalDateTime.parse("2025-02-20T10:30"),
+                        LocalDateTime.parse("2025-02-20T11:30"),
+                        LocalDateTime.parse("2025-02-20T13:30"),
+                        LocalDateTime.parse("2025-02-20T14:30"),
+                        LocalDateTime.parse("2025-02-20T15:30"),
+                        LocalDateTime.parse("2025-02-20T16:30"),
+                        LocalDateTime.parse("2025-02-20T17:00"),
+                        LocalDateTime.parse("2025-02-21T07:30"),
+                        LocalDateTime.parse("2025-02-22T08:30"),
+                        LocalDateTime.parse("2025-02-22T09:30"),
+                        LocalDateTime.parse("2025-02-22T10:30"),
+                        LocalDateTime.parse("2025-02-22T11:30"),
+                        LocalDateTime.parse("2025-02-22T13:30"),
+                        LocalDateTime.parse("2025-02-22T14:30"),
+                        LocalDateTime.parse("2025-02-22T15:30"),
+                        LocalDateTime.parse("2025-02-22T16:30"),
+                        LocalDateTime.parse("2025-02-22T17:00")
 
-                        LocalDateTime.parse("2025-02-24T12:00"),
-                        LocalDateTime.parse("2025-02-25T12:00"),
-                        LocalDateTime.parse("2025-02-26T12:00"),
-                        LocalDateTime.parse("2025-02-27T12:00"),
-                        LocalDateTime.parse("2025-03-04T12:00")
                 ),
                 Arrays.asList(
-                        LocalDateTime.parse("2025-02-17T18:00"),
-                        LocalDateTime.parse("2025-02-18T18:00"),
+                        LocalDateTime.parse("2025-02-19T12:00"),
+                        LocalDateTime.parse("2025-02-20T12:00"),
+                        LocalDateTime.parse("2025-02-21T12:00"),
+                        LocalDateTime.parse("2025-02-22T12:00"),
+                        LocalDateTime.parse("2025-02-24T12:00"),
+                        LocalDateTime.parse("2025-03-26T12:00")
+                ),
+                Arrays.asList(
                         LocalDateTime.parse("2025-02-19T18:00"),
                         LocalDateTime.parse("2025-02-20T18:00"),
                         LocalDateTime.parse("2025-02-21T18:00"),
-                        LocalDateTime.parse("2025-02-22T18:00")
+                        LocalDateTime.parse("2025-02-22T18:00"),
+                        LocalDateTime.parse("2025-02-24T18:00"),
+                        LocalDateTime.parse("2025-02-26T18:00")
                 )
         );
 
@@ -374,41 +409,87 @@ public class MedicoService {
                 Arrays.asList(
                         LocalDateTime.parse("2025-02-19T07:00"),
                         LocalDateTime.parse("2025-02-19T08:00"),
-                        LocalDateTime.parse("2025-02-19T11:00"),
-                        LocalDateTime.parse("2025-02-17T08:30"),
-                        LocalDateTime.parse("2025-02-18T09:00"),
+                        LocalDateTime.parse("2025-02-19T09:00"),
                         LocalDateTime.parse("2025-02-19T10:00"),
-                        LocalDateTime.parse("2025-02-20T11:25"),
-                        LocalDateTime.parse("2025-02-21T13:30")
+                        LocalDateTime.parse("2025-02-19T11:00"),
+                        LocalDateTime.parse("2025-02-19T13:00"),
+                        LocalDateTime.parse("2025-02-19T14:00"),
+                        LocalDateTime.parse("2025-02-19T15:00"),
+                        LocalDateTime.parse("2025-02-19T16:00"),
+                        LocalDateTime.parse("2025-02-19T17:00"),
+                        LocalDateTime.parse("2025-02-20T07:00"),
+                        LocalDateTime.parse("2025-02-20T08:00"),
+                        LocalDateTime.parse("2025-02-20T09:00"),
+                        LocalDateTime.parse("2025-02-20T10:00"),
+                        LocalDateTime.parse("2025-02-20T11:00"),
+                        LocalDateTime.parse("2025-02-20T13:00"),
+                        LocalDateTime.parse("2025-02-20T14:00"),
+                        LocalDateTime.parse("2025-02-20T15:00"),
+                        LocalDateTime.parse("2025-02-20T16:00"),
+                        LocalDateTime.parse("2025-02-20T17:00"),
+                        LocalDateTime.parse("2025-02-21T07:00"),
+                        LocalDateTime.parse("2025-02-21T08:00"),
+                        LocalDateTime.parse("2025-02-22T09:00"),
+                        LocalDateTime.parse("2025-02-24T10:00"),
+                        LocalDateTime.parse("2025-02-25T11:00"),
+                        LocalDateTime.parse("2025-02-25T13:00"),
+                        LocalDateTime.parse("2025-02-26T14:00"),
+                        LocalDateTime.parse("2025-02-26T15:00"),
+                        LocalDateTime.parse("2025-02-26T16:00"),
+                        LocalDateTime.parse("2025-02-27T17:00")
                 ),
                 Arrays.asList(
-                        LocalDateTime.parse("2025-02-23T12:00"),
+                        LocalDateTime.parse("2025-02-19T12:00"),
+                        LocalDateTime.parse("2025-02-20T12:00"),
+                        LocalDateTime.parse("2025-02-21T12:00"),
                         LocalDateTime.parse("2025-02-24T12:00"),
                         LocalDateTime.parse("2025-02-25T12:00"),
-                        LocalDateTime.parse("2025-02-26T12:00"),
-                        LocalDateTime.parse("2025-02-27T12:00"),
-                        LocalDateTime.parse("2025-03-04T12:00")
+                        LocalDateTime.parse("2025-03-26T12:00")
                 ),
                 Arrays.asList(
-                        LocalDateTime.parse("2025-02-18T18:00"),
                         LocalDateTime.parse("2025-02-19T18:00"),
-                        LocalDateTime.parse("2025-02-19T18:50"),
                         LocalDateTime.parse("2025-02-20T18:00"),
-                        LocalDateTime.parse("2025-02-21T18:00"),
-                        LocalDateTime.parse("2025-02-22T18:00")
+                        LocalDateTime.parse("2025-02-21T18:50"),
+                        LocalDateTime.parse("2025-02-22T18:00"),
+                        LocalDateTime.parse("2025-02-24T18:00"),
+                        LocalDateTime.parse("2025-02-25T18:00")
                 )
         );
 
         Medico med4 = new Medico(
-                "Láiza Kevelly",
+                "Laiza Kevelly",
                 "5108",
                 Especialidade.DERMATOLOGIA,
                 Arrays.asList(
                         LocalDateTime.parse("2025-02-17T08:00"),
-                        LocalDateTime.parse("2025-02-18T09:00"),
+                        LocalDateTime.parse("2025-02-17T09:00"),
+                        LocalDateTime.parse("2025-02-17T10:00"),
+                        LocalDateTime.parse("2025-02-17T11:00"),
+                        LocalDateTime.parse("2025-02-17T12:00"),
+                        LocalDateTime.parse("2025-02-17T13:00"),
+                        LocalDateTime.parse("2025-02-17T14:00"),
+                        LocalDateTime.parse("2025-02-17T15:00"),
+                        LocalDateTime.parse("2025-02-17T16:00"),
+                        LocalDateTime.parse("2025-02-17T17:00"),
+                        LocalDateTime.parse("2025-02-18T08:30"),
+                        LocalDateTime.parse("2025-02-18T09:30"),
+                        LocalDateTime.parse("2025-02-18T10:30"),
+                        LocalDateTime.parse("2025-02-18T11:30"),
+                        LocalDateTime.parse("2025-02-18T13:00"),
+                        LocalDateTime.parse("2025-02-18T13:30"),
+                        LocalDateTime.parse("2025-02-18T14:30"),
+                        LocalDateTime.parse("2025-02-18T15:30"),
+                        LocalDateTime.parse("2025-02-19T08:00"),
+                        LocalDateTime.parse("2025-02-19T09:00"),
                         LocalDateTime.parse("2025-02-19T10:00"),
-                        LocalDateTime.parse("2025-02-20T11:00"),
-                        LocalDateTime.parse("2025-02-21T13:30")
+                        LocalDateTime.parse("2025-02-19T11:00"),
+                        LocalDateTime.parse("2025-02-20T14:00"),
+                        LocalDateTime.parse("2025-02-21T15:00"),
+                        LocalDateTime.parse("2025-02-22T08:00"),
+                        LocalDateTime.parse("2025-02-22T09:00"),
+                        LocalDateTime.parse("2025-02-22T10:00"),
+                        LocalDateTime.parse("2025-02-22T11:00")
+
                 ),
                 Arrays.asList(
                         LocalDateTime.parse("2025-02-17T12:00"),
@@ -432,20 +513,33 @@ public class MedicoService {
                 "5678",
                 Especialidade.DERMATOLOGIA,
                 Arrays.asList(
-                        LocalDateTime.parse("2025-02-17T09:00"),
-                        LocalDateTime.parse("2025-02-18T10:00"),
+                        LocalDateTime.parse("2025-02-19T08:00"),
+                        LocalDateTime.parse("2025-02-19T09:00"),
+                        LocalDateTime.parse("2025-02-19T10:00"),
+                        LocalDateTime.parse("2025-02-19T11:00"),
                         LocalDateTime.parse("2025-02-19T13:00"),
+                        LocalDateTime.parse("2025-02-19T14:00"),
+                        LocalDateTime.parse("2025-02-19T15:00"),
+                        LocalDateTime.parse("2025-02-19T16:00"),
+                        LocalDateTime.parse("2025-02-19T17:00"),
+                        LocalDateTime.parse("2025-02-20T07:00"),
+                        LocalDateTime.parse("2025-02-20T08:00"),
+                        LocalDateTime.parse("2025-02-20T09:00"),
+                        LocalDateTime.parse("2025-02-20T10:00"),
+                        LocalDateTime.parse("2025-02-20T11:00"),
+                        LocalDateTime.parse("2025-02-20T13:00"),
                         LocalDateTime.parse("2025-02-20T14:00"),
-                        LocalDateTime.parse("2025-02-21T15:00")
+                        LocalDateTime.parse("2025-02-20T15:00"),
+                        LocalDateTime.parse("2025-02-20T16:00"),
+                        LocalDateTime.parse("2025-02-20T17:00")
+
                 ),
                 Arrays.asList(
-                        LocalDateTime.parse("2025-02-23T12:00"),
-
-                        LocalDateTime.parse("2025-02-24T12:00"),
-                        LocalDateTime.parse("2025-02-25T12:00"),
-                        LocalDateTime.parse("2025-02-26T12:00"),
-                        LocalDateTime.parse("2025-02-27T12:00"),
-                        LocalDateTime.parse("2025-03-04T12:00")
+                        LocalDateTime.parse("2025-02-17T12:00"),
+                        LocalDateTime.parse("2025-02-18T12:00"),
+                        LocalDateTime.parse("2025-02-19T12:00"),
+                        LocalDateTime.parse("2025-02-20T12:00"),
+                        LocalDateTime.parse("2025-02-21T12:00")
                 ),
                 Arrays.asList(
                         LocalDateTime.parse("2025-02-17T18:00"),

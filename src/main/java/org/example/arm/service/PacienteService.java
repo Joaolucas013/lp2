@@ -33,7 +33,6 @@ public class PacienteService {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(path, true))) {
             bw.write(paciente.toString());
             bw.newLine();
-            bw.close();
             System.out.println("Paciente salvo com sucesso: " + paciente);
         } catch (IOException e) {
             e.printStackTrace();
@@ -45,7 +44,7 @@ public class PacienteService {
     private List<Paciente> recuperarPaciente() {
         String path = "C:\\meuscode\\consultasLp2\\paciente.txt";
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-            String linha = br.readLine();
+         String linha = br.readLine();
 
             while (linha != null){
                 linha = linha.replace("Paciente{", "").replace("}", "");
@@ -69,18 +68,26 @@ public class PacienteService {
 
 
     public Paciente procurarPaciente(String nome) {
-        if (pacientes.isEmpty()) {
+
+        if(pacientes.isEmpty()){
             recuperarPaciente();
         }
 
         for (Paciente p : pacientes) {
-            if (p.getNome().trim().equalsIgnoreCase(nome)) {
+            if (p.getNome().trim().equalsIgnoreCase(nome.trim())) {
                 return p;
             }
         }
-        System.out.println("Paciente não cadastrado, cadastre-se!");
-        Paciente paciente = cadastrarPaciente();
-        return paciente;
+//        for (Paciente p : pacientes) {
+//            if (p.getNome().trim().equalsIgnoreCase(nome)) {
+//                var paciente = new Paciente(p.getNome(), p.getSexo(), p.getIdade());
+//                return paciente;
+//            }
+//        }
+
+        System.out.println("Paciente não encontrado. cadastre-se");
+        var p = cadastrarPaciente();
+        return p;
     }
 
 }

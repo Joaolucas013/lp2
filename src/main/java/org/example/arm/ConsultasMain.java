@@ -8,9 +8,9 @@ import java.util.Scanner;
 
 public class ConsultasMain {
 
-  static   MedicoService medicoService = new MedicoService();
-  static ConsultaService consultaService = new ConsultaService();
-  static PacienteService pacienteService = new PacienteService();
+    public static MedicoService medicoService = new MedicoService();
+    public static ConsultaService consultaService = new ConsultaService();
+    public static PacienteService pacienteService = new PacienteService();
 
     public static void main(String[] args) {
        medicoService.retornarMedicoImutaveis();
@@ -46,6 +46,7 @@ public class ConsultasMain {
 
     private static void salvar() {
         System.out.println("Salvando consulta!");
+        consultaService.finalizar();
 
     }
 

@@ -23,7 +23,7 @@ public class ConsultaService {
 
     public void agendar() {
         System.out.println("Informe o nome do paciente:");
-        String nome = scanner.nextLine();
+        String nome = scanner.nextLine().trim();
         var paciente = pacienteService.procurarPaciente(nome);
 
         medicoService.retornarLista();
@@ -48,7 +48,7 @@ public class ConsultaService {
 
     public void cadastrarPelaEspecialidade() {
         System.out.println("Informe o nome do paciente:");
-        String name = scanner.nextLine().trim();
+        String name = scanner.nextLine();
         var paciente = pacienteService.procurarPaciente(name);
 
         medicoService.retornarHashEspecialidade();
@@ -70,6 +70,7 @@ public class ConsultaService {
             System.out.println("Consulta agendada com sucesso!\n" + consultaDto);
             medicoService.salvarAlteracoes();
             consultas.add(consulta);
+            salvarConsultas(consulta);
 
 
         } else{
@@ -86,26 +87,23 @@ public class ConsultaService {
 
             System.out.println("Consulta agendada com sucesso!\n" + consultaDto);
             medicoService.salvarAlteracoes();
-            consultas.add(consulta);
+
         }
 
     }
 
-    public void salvarConsultas()  {
+    public void salvarConsultas(Consulta consulta)  {
          String caminho = "C:\\meuscode\\consultasLp2\\consultas.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(caminho, true))) {
-            for (Consulta consulta:consultas) {
-                writer.write(consultas.toString());
-                writer.newLine();
-            }
-          } catch (IOException e) {
+                writer.write(consulta.toString());
+              writer.newLine();
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 
 
     public void finalizar() {
-        salvarConsultas();
+        System.out.println("Consultas salvas no arquivo consultas.txt");
     }
 }

@@ -47,7 +47,7 @@ public class Consulta {
         return "Consulta{" +
                 "horario consulta=" + dataConsulta +
                 ", paciente=" + paciente +
-                ", medico=" + medico +
+                ", medico=" + medico.getNome() + medico.getEspecialidade() + medico.getCrm() +
                 '}';
     }
 
