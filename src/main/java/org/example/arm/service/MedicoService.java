@@ -17,7 +17,7 @@ public class MedicoService {
 
     public void cadastrarMedico() {
         System.out.println("Informe o nome do médico:");
-        String nome = scanner.nextLine();
+        String nome = scanner.nextLine().trim();
         System.out.println("Informe o CRM:");
         String crm = scanner.nextLine();
         String crmValido = validarCrm(crm);
@@ -88,7 +88,7 @@ public class MedicoService {
         }
     }
 
-    // aqui retorna todos os médicos, os imutaveis tbm, mas n é possivel mudar os dados deles
+    // aqui retorna todos os médicos, os imutaveis, mas n é possivel mudar os dados deles
     public List<Medico> recuperarMedico() {
         String caminho = "C:\\meuscode\\consultasLp2\\medicos.txt";
         try (BufferedReader br = new BufferedReader(new FileReader(caminho))) {
@@ -103,15 +103,15 @@ public class MedicoService {
 
 
                 String horariosDisponiveisStr = vetor[3].split("=")[1];
-                List<LocalDateTime> horariosDisponiveis = parseListaHorarios(horariosDisponiveisStr);
+                List<LocalDateTime> horariosDisponiveis = listaHorarios(horariosDisponiveisStr);
 
-                // Parse horários de descanso
+
                 String horariosDescansoStr = vetor[4].split("=")[1];
-                List<LocalDateTime> horariosDescanso = parseListaHorarios(horariosDescansoStr);
+                List<LocalDateTime> horariosDescanso = listaHorarios(horariosDescansoStr);
 
 
-                String horarioBloqueadoStr = vetor[5].split("=")[1];
-                List<LocalDateTime> horarioBloqueado = parseListaHorarios(horarioBloqueadoStr);
+                String horarioBlock = vetor[5].split("=")[1];
+                List<LocalDateTime> horarioBloqueado = listaHorarios(horarioBlock);
 
                 Medico medico = new Medico(nome, crm, especialidade, horariosDisponiveis, horariosDescanso, horarioBloqueado);
                 if (medicoImutaveis.size() < 5) {
@@ -129,12 +129,12 @@ public class MedicoService {
     }
 
 
-    private List<LocalDateTime> parseListaHorarios(String listaStr) {
-        listaStr = listaStr.replace("[", "").replace("]", "");
-        if (listaStr.isEmpty()) {
+    private List<LocalDateTime> listaHorarios(String list) {
+        list = list.replace("[", "").replace("]", "");
+        if (list.isEmpty()) {
             return new ArrayList<>();
         }
-        String[] horarios = listaStr.split(",\\s*");
+        String[] horarios = list.split(",\\s*");
         List<LocalDateTime> listaHorarios = new ArrayList<>();
         for (String horario : horarios) {
             listaHorarios.add(LocalDateTime.parse(horario));
@@ -266,10 +266,8 @@ public class MedicoService {
     }
 
     public void retornarMedicoImutaveis() {
-        if(medicoList.isEmpty()){
-                iniciarMedicos();
-            }
-        medicoImutaveis.stream().forEach(System.out::println);
+        recuperarMedico();
+        medicoImutaveis.stream().limit(5).forEach(System.out::println);
     }
 
 
@@ -457,5 +455,6 @@ public class MedicoService {
         medicoImutaveis.add(med5);
         salvarMedicoImutaveis();
     }
+
 
 }

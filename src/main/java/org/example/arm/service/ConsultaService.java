@@ -101,6 +101,9 @@ public class ConsultaService {
             throw new RuntimeException(e);
         }
 
+        if(!consultas.isEmpty()){
+            consultas.stream().forEach(System.out::println);
+        }
     }
 
 

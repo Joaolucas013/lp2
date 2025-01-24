@@ -1,0 +1,1 @@
+[Consulta{horario consulta=2025-02-17T09:00, paciente=Paciente{nome='eminem', sexo='masculino', idade=23}, medico=Medico{nome='teste', crm='18829', especialidade=UROLOGIA, horariosDisponiveis=[], horariosDescanso=[2025-02-17T09:30], horarioBloqueado=[2025-02-17T17:00]}}]
