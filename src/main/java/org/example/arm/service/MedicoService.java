@@ -11,9 +11,12 @@ import java.util.*;
 public class MedicoService {
 
 
-   public List<Medico> medicoList = new ArrayList<>();
-   public List<Medico> medicoImutaveis = new ArrayList<>();
-   public  Scanner scanner = new Scanner(System.in);
+//   public List<Medico> medicoList = new ArrayList<>();
+//   public List<Medico> medicoImutaveis = new ArrayList<>();
+     private List<Medico> medicoList = new ArrayList<>();
+    private List<Medico> medicoImutaveis = new ArrayList<>();
+
+    public  Scanner scanner = new Scanner(System.in);
 
     public void cadastrarMedico() {
         System.out.println("Informe o nome do médico:");
@@ -70,7 +73,7 @@ public class MedicoService {
 
     private void salvarTodosMedicos() throws IOException {
         String caminho = "C:\\meuscode\\consultasLp2\\medicos.txt";
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho, true))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho))) {
             try {
                 for (Medico medico : medicoList) {
                     bw.write(medico.toString());
@@ -114,6 +117,7 @@ public class MedicoService {
                 List<LocalDateTime> horarioBloqueado = listaHorarios(horarioBlock);
 
                 Medico medico = new Medico(nome, crm, especialidade, horariosDisponiveis, horariosDescanso, horarioBloqueado);
+
                 if (medicoImutaveis.size() < 5) {
                     medicoImutaveis.add(medico);
                 }
@@ -122,7 +126,7 @@ public class MedicoService {
 
             }
         } catch (IOException e) {
-            throw new RuntimeException("Erro ao ler o arquivo de médicos", e);
+            throw new RuntimeException();
         }
 
         return medicoList;
@@ -266,8 +270,11 @@ public class MedicoService {
     }
 
     public void retornarMedicoImutaveis() {
-        iniciarMedicos();
-        recuperarMedico();
+        System.out.println("Lista de médicos antes de recuperar os dados do arquivo medico.txt:\n" + medicoImutaveis);
+        if(medicoList.isEmpty()){
+            recuperarMedico();
+        }
+        System.out.println("Lista de médicos depois de recuperar os dados do arquivo medico.txt:\n" + medicoImutaveis);
         medicoImutaveis.stream().forEach(System.out::println);
     }
 
