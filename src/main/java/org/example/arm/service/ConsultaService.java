@@ -11,6 +11,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ConsultaService {
 
@@ -101,10 +102,10 @@ public class ConsultaService {
             throw new RuntimeException(e);
         }
 
-        if(!consultas.isEmpty()){
-            consultas.stream().forEach(System.out::println);
-        }
     }
 
 
+    public void finalizar() {
+        salvarConsultas();
+    }
 }

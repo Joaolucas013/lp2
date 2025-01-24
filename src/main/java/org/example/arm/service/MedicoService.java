@@ -266,8 +266,9 @@ public class MedicoService {
     }
 
     public void retornarMedicoImutaveis() {
+        iniciarMedicos();
         recuperarMedico();
-        medicoImutaveis.stream().limit(5).forEach(System.out::println);
+        medicoImutaveis.stream().forEach(System.out::println);
     }
 
 
@@ -351,11 +352,11 @@ public class MedicoService {
                 ),
                 Arrays.asList(
                         LocalDateTime.parse("2025-02-17T18:00"),
-                        LocalDateTime.parse("2025-02-17T18:00"),
-                        LocalDateTime.parse("2025-02-17T18:00"),
-                        LocalDateTime.parse("2025-02-17T18:00"),
-                        LocalDateTime.parse("2025-02-17T18:00"),
-                        LocalDateTime.parse("2025-02-17T18:00")
+                        LocalDateTime.parse("2025-02-18T18:00"),
+                        LocalDateTime.parse("2025-02-19T18:00"),
+                        LocalDateTime.parse("2025-02-20T18:00"),
+                        LocalDateTime.parse("2025-02-21T18:00"),
+                        LocalDateTime.parse("2025-02-22T18:00")
                 )
         );
 
@@ -382,12 +383,12 @@ public class MedicoService {
                         LocalDateTime.parse("2025-03-04T12:00")
                 ),
                 Arrays.asList(
-                        LocalDateTime.parse("2025-02-17T18:00"),
-                        LocalDateTime.parse("2025-02-17T18:00"),
-                        LocalDateTime.parse("2025-02-17T18:00"),
-                        LocalDateTime.parse("2025-02-17T18:00"),
-                        LocalDateTime.parse("2025-02-17T18:00"),
-                        LocalDateTime.parse("2025-02-17T18:00")
+                        LocalDateTime.parse("2025-02-18T18:00"),
+                        LocalDateTime.parse("2025-02-19T18:00"),
+                        LocalDateTime.parse("2025-02-19T18:50"),
+                        LocalDateTime.parse("2025-02-20T18:00"),
+                        LocalDateTime.parse("2025-02-21T18:00"),
+                        LocalDateTime.parse("2025-02-22T18:00")
                 )
         );
 

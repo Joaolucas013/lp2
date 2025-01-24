@@ -46,7 +46,7 @@ public class ConsultasMain {
 
     private static void salvar() {
         System.out.println("Salvando consulta!");
-        consultaService.salvarConsultas();
+
     }
 
 
