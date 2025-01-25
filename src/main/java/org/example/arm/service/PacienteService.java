@@ -72,19 +72,11 @@ public class PacienteService {
         if(pacientes.isEmpty()){
             recuperarPaciente();
         }
-
         for (Paciente p : pacientes) {
             if (p.getNome().trim().equalsIgnoreCase(nome.trim())) {
                 return p;
             }
         }
-//        for (Paciente p : pacientes) {
-//            if (p.getNome().trim().equalsIgnoreCase(nome)) {
-//                var paciente = new Paciente(p.getNome(), p.getSexo(), p.getIdade());
-//                return paciente;
-//            }
-//        }
-
         System.out.println("Paciente não encontrado. cadastre-se");
         var p = cadastrarPaciente();
         return p;

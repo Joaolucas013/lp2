@@ -4,9 +4,11 @@ import org.example.arm.medico.Especialidade;
 
 import java.time.LocalDateTime;
 
-public record DadosConsulta(String paciente, String medico, Especialidade especialidade, LocalDateTime data) {
+public record DadosConsulta(String paciente, String medico, LocalDateTime data) {
 
-    public DadosConsulta(Consulta c){
-        this(c.getPaciente().getNome(), c.getMedico().getNome(), c.getMedico().getEspecialidade(), c.getMedico().getHorariosDisponiveis().get(0));
+    public DadosConsulta(String paciente, String medico, LocalDateTime data) {
+        this.paciente = paciente;
+        this.medico = medico;
+        this.data = data;
     }
 }
