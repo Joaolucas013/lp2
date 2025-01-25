@@ -282,8 +282,7 @@ public class MedicoService {
         if(medicoList.isEmpty()){
             recuperarMedico();
         }
-
-        for (Medico medico : medicoList) {
+         for (Medico medico : medicoList) {
             listEspecialidade.add(medico.getEspecialidade());
         }
         if (listEspecialidade.isEmpty()) {
@@ -309,11 +308,11 @@ public class MedicoService {
                 "1234",
                 Especialidade.CARDIOLOGIA,
                 Arrays.asList(
-//                        LocalDateTime.parse("2025-02-17T09:30"),
-//                        LocalDateTime.parse("2025-02-18T16:30"),
-//                        LocalDateTime.parse("2025-02-19T14:00"),
-//                        LocalDateTime.parse("2025-02-20T08:30"),
-//                        LocalDateTime.parse("2025-02-21T09:00"),
+                        LocalDateTime.parse("2025-02-17T09:30"),
+                        LocalDateTime.parse("2025-02-18T16:30"),
+                        LocalDateTime.parse("2025-02-19T14:00"),
+                        LocalDateTime.parse("2025-02-20T08:30"),
+                        LocalDateTime.parse("2025-02-21T09:00"),
                         LocalDateTime.parse("2025-02-22T16:00")
 
                 ),
