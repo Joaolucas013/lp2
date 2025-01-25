@@ -1,2 +1,1 @@
-Paciente{nome='eminem', sexo='mascuulino', idade=23}
-Paciente{nome='teste', sexo='masculino', idade=22}
+

@@ -314,7 +314,7 @@ public class MedicoService {
 //                        LocalDateTime.parse("2025-02-19T14:00"),
 //                        LocalDateTime.parse("2025-02-20T08:30"),
 //                        LocalDateTime.parse("2025-02-21T09:00"),
-//                        LocalDateTime.parse("2025-02-22T16:00")
+                        LocalDateTime.parse("2025-02-22T16:00")
 
                 ),
                 Arrays.asList(
