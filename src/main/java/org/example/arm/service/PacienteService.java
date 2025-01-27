@@ -40,13 +40,13 @@ public class PacienteService {
         }
 
     }
-
     public void recuperarPaciente() {
-        String caminho = "C:\\meuscode\\teste\\pacientes.txt";
+        String path = "C:\\meuscode\\consultasLp2\\paciente.txt";
 
-        try (BufferedReader br = new BufferedReader(new FileReader(caminho))) {
-            String linha = null;
-            while ((linha=br.readLine()) != null) {
+        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+
+            String linha = br.readLine(); //br.readLine(); // Lê a primeira linha
+            while (linha != null) {
                 linha = linha.replace("Paciente{", "")
                         .replace("}", "");
 
@@ -63,21 +63,18 @@ public class PacienteService {
 
                 Paciente paciente = new Paciente(nome, sexo, idade);
                 pacientes.add(paciente);
-
+                linha = br.readLine();
 
             }
         } catch (IOException e) {
-            throw new RuntimeException("Erro ao ler o arquivo: " + e.getMessage(), e);
+            throw new RuntimeException();
         }
     }
 
-
     public Paciente procurarPaciente(String nome) {
-        if (pacientes.isEmpty()) {
+        if(pacientes.isEmpty()){
             recuperarPaciente();
-            if (pacientes.isEmpty()) {
-                return cadastrarPaciente();
-            }
+            System.out.println(pacientes);
         }
         for (Paciente p : pacientes) {
             if (p.getNome().trim().equalsIgnoreCase(nome.trim())) {
@@ -88,5 +85,4 @@ public class PacienteService {
         var p = cadastrarPaciente();
         return p;
     }
-
 }
