@@ -41,14 +41,21 @@ public class PacienteService {
 
     }
 
-    private List<Paciente> recuperarPaciente() {
-        String path = "C:\\meuscode\\consultasLp2\\paciente.txt";
-        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-         String linha = br.readLine();
+    public void recuperarPaciente() {
+        String caminho = "C:\\meuscode\\teste\\pacientes.txt";
 
-            while (linha != null){
-                linha = linha.replace("Paciente{", "").replace("}", "");
-                String[] vetor = linha.split(","); // Divide os campos com base na vírgula
+        try (BufferedReader br = new BufferedReader(new FileReader(caminho))) {
+            String linha = null;
+            while ((linha=br.readLine()) != null) {
+                linha = linha.replace("Paciente{", "")
+                        .replace("}", "");
+
+                String[] vetor = linha.split(", ");
+                if (vetor.length < 3) {
+                    System.out.println("Paciente não cadastrado. Cadastre-see!");
+                    cadastrarPaciente();
+                    continue;
+                }
 
                 String nome = vetor[0].split("=")[1].replace("'", "");
                 String sexo = vetor[1].split("=")[1].replace("'", "");
@@ -56,14 +63,12 @@ public class PacienteService {
 
                 Paciente paciente = new Paciente(nome, sexo, idade);
                 pacientes.add(paciente);
-                linha = br.readLine();
+
+
             }
-        } catch (FileNotFoundException e) {
-            System.err.println("Arquivo não encontrado: " + path);
         } catch (IOException e) {
-            throw new RuntimeException("Erro ao ler o arquivo", e);
+            throw new RuntimeException("Erro ao ler o arquivo: " + e.getMessage(), e);
         }
-        return pacientes;
     }
 
 
