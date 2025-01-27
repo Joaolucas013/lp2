@@ -123,7 +123,7 @@ public class ConsultaService{
 
 
     public void salvarConsultasEmArquivo(Consulta consulta)  {
-        String caminho = "C:\\meuscode\\teste\\consultas.txt";
+        String caminho = "C:\\meuscode\\consultasLp2\\consultas.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(caminho, true))) {
             writer.write(consulta.toString());
             writer.newLine();
@@ -134,7 +134,7 @@ public class ConsultaService{
 
     public List<DadosConsulta> retornaConsultas() {
         DadosConsulta dados = null;
-        String caminho = "C:\\meuscode\\teste\\consultas.txt";
+        String caminho = "C:\\meuscode\\consultasLp2\\consultas.txt";
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(caminho))) {
             String linha = bufferedReader.readLine();
 

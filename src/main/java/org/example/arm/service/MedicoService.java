@@ -59,7 +59,7 @@ public class MedicoService {
     }
 
     private void salvarMedicoEmArquivo(Medico medico) throws IOException {
-        String caminho = "C:\\meuscode\\teste\\medicos.txt";
+        String caminho = "C:\\meuscode\\consultasLp2\\medicos.txt";
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho, true))) {
             try {
                 bw.write(medico.toString());
@@ -76,7 +76,7 @@ public class MedicoService {
     }
 
     private void salvarTodosMedicos() throws IOException {
-        String caminho = "C:\\meuscode\\teste\\medicos.txt";
+        String caminho = "C:\\meuscode\\consultasLp2\\medicos.txt";
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho))) {
             try {
                 for (Medico medico : medicoList) {
@@ -96,7 +96,7 @@ public class MedicoService {
     }
 
     public List<Medico> recuperarMedico() {
-        String caminho = "C:\\meuscode\\teste\\medicos.txt";
+        String caminho = "C:\\meuscode\\consultasLp2\\medicos.txt";
         try (BufferedReader br = new BufferedReader(new FileReader(caminho))) {
             String linha = br.readLine();
 
@@ -178,7 +178,7 @@ public class MedicoService {
 
 
     public void salvarAlteracoes() {
-        String caminho = "C:\\meuscode\\teste\\medicos.txt";
+        String caminho = "C:\\meuscode\\consultasLp2\\medicos.txt";
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho))) {
             try {
                 for (Medico medico : medicoList) {
@@ -239,7 +239,7 @@ public class MedicoService {
 
 
     private void salvarMedicoImutaveis() {
-        String caminho = "C:\\meuscode\\teste\\medicos.txt";
+        String caminho = "C:\\meuscode\\consultasLp2\\medicos.txt";
         try {
             try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho))) {
                 for (Medico medico : medicoImutaveis) {
