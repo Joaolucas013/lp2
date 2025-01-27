@@ -10,40 +10,44 @@ import java.util.*;
 
 public class MedicoService {
 
-
-   public List<Medico> medicoList = new ArrayList<>();
-   public List<Medico> medicoImutaveis = new ArrayList<>();
-//     private List<Medico> medicoList = new ArrayList<>();
-//    private List<Medico> medicoImutaveis = new ArrayList<>();
+    public static List<Medico> medicoList = new ArrayList<>();
+    public static List<Medico> medicoImutaveis = new ArrayList<>();
 
     public  Scanner scanner = new Scanner(System.in);
 
     public void cadastrarMedico() {
         System.out.println("Informe o nome do médico:");
         String nome = scanner.nextLine().trim();
+
         System.out.println("Informe o CRM:");
         String crm = scanner.nextLine();
         String crmValido = validarCrm(crm);
+
         System.out.println("Informe  a especialidade");
         Especialidade especialidade = Especialidade.valueOf(scanner.nextLine());
 
+        System.out.println("Informe o(s) horarios disponíveis para a semana!" + nome);
+        LocalDateTime horariosDisponiveis = LocalDateTime.parse(scanner.nextLine());
+        List<LocalDateTime> hrsDisponiveis = new ArrayList<>();
+        hrsDisponiveis.add(horariosDisponiveis);
+
         System.out.println("Informe o(s) horarios  de consultas do médico!" + nome);
         LocalDateTime consultaHorario = LocalDateTime.parse(scanner.nextLine());
-        List<LocalDateTime> disponibilidadeSemanal = new ArrayList<>();
-        disponibilidadeSemanal.add(consultaHorario);
+        List<LocalDateTime> hrsConsultas = new ArrayList<>();
+        hrsConsultas.add(consultaHorario);
 
-        System.out.println("Informe o(s) horarios  disponiveis para a semana: ");
+        System.out.println("Informe o(s) horarios  de descanso para a semana: ");
         LocalDateTime descanso = LocalDateTime.parse(scanner.nextLine());
         List<LocalDateTime> descansoSemanal = new ArrayList<>();
         descansoSemanal.add(descanso);
 
-        System.out.println("Informe o(s) horarios  de descanso do médico!");
+        System.out.println("Informe o(s) bloqueados para consulta na semana!");
         LocalDateTime bloqueado = LocalDateTime.parse(scanner.nextLine());
         List<LocalDateTime> horariosbloqueados = new ArrayList<>();
         horariosbloqueados.add(bloqueado);
 
-        Medico medico = new Medico(nome, crmValido, especialidade, disponibilidadeSemanal, descansoSemanal, horariosbloqueados);
 
+        Medico medico = new Medico(nome, crmValido, especialidade, hrsDisponiveis, hrsConsultas, descansoSemanal, horariosbloqueados);
         medicoList.add(medico);
         System.out.println("Médico salvo com sucesso! " + medico);
         try {
@@ -55,7 +59,7 @@ public class MedicoService {
     }
 
     private void salvarMedicoEmArquivo(Medico medico) throws IOException {
-        String caminho = "C:\\meuscode\\consultasLp2\\medicos.txt";
+        String caminho = "C:\\meuscode\\teste\\medicos.txt";
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho, true))) {
             try {
                 bw.write(medico.toString());
@@ -72,7 +76,7 @@ public class MedicoService {
     }
 
     private void salvarTodosMedicos() throws IOException {
-        String caminho = "C:\\meuscode\\consultasLp2\\medicos.txt";
+        String caminho = "C:\\meuscode\\teste\\medicos.txt";
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho))) {
             try {
                 for (Medico medico : medicoList) {
@@ -91,9 +95,8 @@ public class MedicoService {
         }
     }
 
-    // aqui retorna todos os médicos, os imutaveis, mas n é possivel mudar os dados deles
     public List<Medico> recuperarMedico() {
-        String caminho = "C:\\meuscode\\consultasLp2\\medicos.txt";
+        String caminho = "C:\\meuscode\\teste\\medicos.txt";
         try (BufferedReader br = new BufferedReader(new FileReader(caminho))) {
             String linha = br.readLine();
 
@@ -105,19 +108,21 @@ public class MedicoService {
                 String crm = vetor[1].split("=")[1].replace("'", "");
                 Especialidade especialidade = Especialidade.valueOf(vetor[2].split("=")[1].replace("'", ""));
 
+                String consultas = vetor[3].split("=")[1];
+                List<LocalDateTime> consultashrs = listaHorarios(consultas);
 
-                String horariosDisponiveisStr = vetor[3].split("=")[1];
+                String horariosDisponiveisStr = vetor[4].split("=")[1];
                 List<LocalDateTime> horariosDisponiveis = listaHorarios(horariosDisponiveisStr);
 
 
-                String horariosDescansoStr = vetor[4].split("=")[1];
+                String horariosDescansoStr = vetor[5].split("=")[1];
                 List<LocalDateTime> horariosDescanso = listaHorarios(horariosDescansoStr);
 
 
-                String horarioBlock = vetor[5].split("=")[1];
+                String horarioBlock = vetor[6].split("=")[1];
                 List<LocalDateTime> horarioBloqueado = listaHorarios(horarioBlock);
 
-                Medico medico = new Medico(nome, crm, especialidade, horariosDisponiveis, horariosDescanso, horarioBloqueado);
+                Medico medico = new Medico(nome, crm, especialidade,consultashrs,horariosDisponiveis, horariosDescanso, horarioBloqueado);
                 medicoList.add(medico);
 
                 if (medicoImutaveis.size() < 5) {
@@ -131,6 +136,8 @@ public class MedicoService {
 
         return medicoList;
     }
+
+
 
 
     private List<LocalDateTime> listaHorarios(String list) {
@@ -153,7 +160,7 @@ public class MedicoService {
         }
 
         if(medicoList.isEmpty()){
-          throw new ConsultaException("Não há medicos disponíveis para bloqueio de horário!");
+            throw new ConsultaException("Não há medicos disponíveis para bloqueio de horário!");
         }
         medicoList.stream().forEach(System.out::println);
         System.out.println("Informe o nome do médico!");
@@ -171,7 +178,7 @@ public class MedicoService {
 
 
     public void salvarAlteracoes() {
-        String caminho = "C:\\meuscode\\consultasLp2\\medicos.txt";
+        String caminho = "C:\\meuscode\\teste\\medicos.txt";
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho))) {
             try {
                 for (Medico medico : medicoList) {
@@ -194,7 +201,7 @@ public class MedicoService {
 
 
     public  Medico procurarMedicoEspecialidade(Especialidade especialidade) {
-       List<Medico> listMedicoEspecialidade = new ArrayList<>();
+        List<Medico> listMedicoEspecialidade = new ArrayList<>();
         Random r = new Random();
 
         if (medicoList.isEmpty()) {
@@ -203,7 +210,7 @@ public class MedicoService {
         for (Medico medico : medicoList) {
             if (medico.getEspecialidade().equals(especialidade)) {
                 Medico medico1 = new Medico(medico.getNome(), medico.getCrm(), medico.getEspecialidade(),
-                        medico.getHorariosDisponiveis(), medico.getHorariosDescanso(), medico.getHorarioBloqueado());
+                        medico.getHorariosDisponiveis(), medico.getHorariosConsultas(), medico.getHorariosDescanso(), medico.getHorarioBloqueado());
                 listMedicoEspecialidade.add(medico1);
             }
         }
@@ -232,7 +239,7 @@ public class MedicoService {
 
 
     private void salvarMedicoImutaveis() {
-        String caminho = "C:\\meuscode\\consultasLp2\\medicos.txt";
+        String caminho = "C:\\meuscode\\teste\\medicos.txt";
         try {
             try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho))) {
                 for (Medico medico : medicoImutaveis) {
@@ -269,9 +276,9 @@ public class MedicoService {
     }
 
     public void retornarMedicoImutaveis() {
+        iniciarMedicos();
         if(medicoList.isEmpty()){
-           iniciarMedicos();
-           recuperarMedico();
+            recuperarMedico();
         }
         medicoImutaveis.stream().forEach(System.out::println);
     }
@@ -282,7 +289,7 @@ public class MedicoService {
         if(medicoList.isEmpty()){
             recuperarMedico();
         }
-         for (Medico medico : medicoList) {
+        for (Medico medico : medicoList) {
             listEspecialidade.add(medico.getEspecialidade());
         }
         if (listEspecialidade.isEmpty()) {
@@ -307,23 +314,28 @@ public class MedicoService {
                 "Joao Lucas",
                 "1234",
                 Especialidade.CARDIOLOGIA,
-                Arrays.asList(
-                        LocalDateTime.parse("2025-02-17T09:30"),
-                        LocalDateTime.parse("2025-02-18T16:30"),
-                        LocalDateTime.parse("2025-02-19T14:00"),
-                        LocalDateTime.parse("2025-02-20T08:30"),
-                        LocalDateTime.parse("2025-02-21T09:00"),
-                        LocalDateTime.parse("2025-02-22T16:00")
-
+                Arrays.asList(              // consulta
+                        LocalDateTime.parse("2025-02-23T07:00"),
+                        LocalDateTime.parse("2025-02-24T08:00"),
+                        LocalDateTime.parse("2025-02-25T09:00"),
+                        LocalDateTime.parse("2025-02-26T10:00"),
+                        LocalDateTime.parse("2025-02-27T11:30")
                 ),
-                Arrays.asList(
+                Arrays.asList(    // horario disponivel
+                        LocalDateTime.parse("2025-02-17T13:30"),
+                        LocalDateTime.parse("2025-02-18T14:30"),
+                        LocalDateTime.parse("2025-02-19T15:00"),
+                        LocalDateTime.parse("2025-02-20T15:30"),
+                        LocalDateTime.parse("2025-02-21T16:00")
+                ),
+                Arrays.asList(  // descanso
                         LocalDateTime.parse("2025-02-17T12:00"),
                         LocalDateTime.parse("2025-02-18T12:00"),
                         LocalDateTime.parse("2025-02-19T12:00"),
                         LocalDateTime.parse("2025-02-20T12:00"),
                         LocalDateTime.parse("2025-02-21T12:00")
                 ),
-                Arrays.asList(
+                Arrays.asList(   // bloqueado
                         LocalDateTime.parse("2025-02-17T18:00"),
                         LocalDateTime.parse("2025-02-18T18:00"),
                         LocalDateTime.parse("2025-02-19T18:00"),
@@ -337,11 +349,18 @@ public class MedicoService {
                 "1122",
                 Especialidade.ORTOPEDIA,
                 Arrays.asList(
-                        LocalDateTime.parse("2025-02-17T09:30"),
-                        LocalDateTime.parse("2025-02-18T10:30"),
+                        LocalDateTime.parse("2025-02-23T08:00"),
+                        LocalDateTime.parse("2025-02-24T08:30"),
+                        LocalDateTime.parse("2025-02-25T09:00"),
+                        LocalDateTime.parse("2025-02-26T09:30"),
+                        LocalDateTime.parse("2025-02-27T10:30")
+                ),
+                Arrays.asList(
+                        LocalDateTime.parse("2025-02-17T13:30"),
+                        LocalDateTime.parse("2025-02-18T14:00"),
                         LocalDateTime.parse("2025-02-19T14:30"),
-                        LocalDateTime.parse("2025-02-20T15:30"),
-                        LocalDateTime.parse("2025-02-21T07:30"),
+                        LocalDateTime.parse("2025-02-20T15:00"),
+                        LocalDateTime.parse("2025-02-21T15:30"),
                         LocalDateTime.parse("2025-02-22T16:00")
 
                 ),
@@ -368,13 +387,19 @@ public class MedicoService {
                 "3344",
                 Especialidade.NEUROLOGIA,
                 Arrays.asList(
-                        LocalDateTime.parse("2025-02-19T07:00"),
-                        LocalDateTime.parse("2025-02-20T08:00"),
-                        LocalDateTime.parse("2025-02-21T07:00"),
-                        LocalDateTime.parse("2025-02-22T09:00"),
-                        LocalDateTime.parse("2025-02-24T10:00"),
-                        LocalDateTime.parse("2025-02-25T13:00"),
-                        LocalDateTime.parse("2025-02-26T16:00")
+                        LocalDateTime.parse("2025-02-23T08:00"),
+                        LocalDateTime.parse("2025-02-24T09:30"),
+                        LocalDateTime.parse("2025-02-25T10:00"),
+                        LocalDateTime.parse("2025-02-26T10:30"),
+                        LocalDateTime.parse("2025-02-27T11:00")
+                ),
+                Arrays.asList(
+                        LocalDateTime.parse("2025-02-19T16:00"),
+                        LocalDateTime.parse("2025-02-20T13:30"),
+                        LocalDateTime.parse("2025-02-21T14:00"),
+                        LocalDateTime.parse("2025-02-22T14:30"),
+                        LocalDateTime.parse("2025-02-24T15:00")
+
                 ),
                 Arrays.asList(
                         LocalDateTime.parse("2025-02-19T12:00"),
@@ -399,13 +424,18 @@ public class MedicoService {
                 "5108",
                 Especialidade.DERMATOLOGIA,
                 Arrays.asList(
-                        LocalDateTime.parse("2025-02-17T16:00"),
-                        LocalDateTime.parse("2025-02-18T08:30"),
-                        LocalDateTime.parse("2025-02-19T08:00"),
-                        LocalDateTime.parse("2025-02-20T14:00"),
-                        LocalDateTime.parse("2025-02-21T15:00"),
-                        LocalDateTime.parse("2025-02-22T08:00")
-
+                        LocalDateTime.parse("2025-02-23T08:00"),
+                        LocalDateTime.parse("2025-02-24T09:30"),
+                        LocalDateTime.parse("2025-02-25T10:00"),
+                        LocalDateTime.parse("2025-02-26T10:30"),
+                        LocalDateTime.parse("2025-02-27T11:00")
+                ),
+                Arrays.asList(
+                        LocalDateTime.parse("2025-02-17T13:30"),
+                        LocalDateTime.parse("2025-02-18T14:20"),
+                        LocalDateTime.parse("2025-02-19T15:00"),
+                        LocalDateTime.parse("2025-02-20T15:40"),
+                        LocalDateTime.parse("2025-02-21T16:20")
                 ),
                 Arrays.asList(
                         LocalDateTime.parse("2025-02-17T12:00"),
@@ -429,12 +459,18 @@ public class MedicoService {
                 "5678",
                 Especialidade.DERMATOLOGIA,
                 Arrays.asList(
-                        LocalDateTime.parse("2025-02-19T08:00"),
-                        LocalDateTime.parse("2025-02-20T13:00"),
-                        LocalDateTime.parse("2025-02-21T14:00"),
-                        LocalDateTime.parse("2025-02-22T15:00"),
-                        LocalDateTime.parse("2025-02-24T16:00"),
-                        LocalDateTime.parse("2025-02-26T17:00")
+                        LocalDateTime.parse("2025-02-23T08:00"),
+                        LocalDateTime.parse("2025-02-24T09:30"),
+                        LocalDateTime.parse("2025-02-25T10:00"),
+                        LocalDateTime.parse("2025-02-26T10:30"),
+                        LocalDateTime.parse("2025-02-27T11:00")
+                ),
+                Arrays.asList(
+                        LocalDateTime.parse("2025-02-19T13:00"),
+                        LocalDateTime.parse("2025-02-20T13:40"),
+                        LocalDateTime.parse("2025-02-21T15:30"),
+                        LocalDateTime.parse("2025-02-22T16:00"),
+                        LocalDateTime.parse("2025-02-24T17:00")
 
                 ),
                 Arrays.asList(

@@ -1,1 +1,1 @@
-
+Paciente{nome='eminem', sexo='masculino', idade=23}

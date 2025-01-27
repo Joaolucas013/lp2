@@ -11,18 +11,28 @@ public class Medico {
     private String crm;
     private Especialidade especialidade;
     private List<LocalDateTime> horariosDisponiveis;
+    private List<LocalDateTime> horariosConsultas;
     private  List<LocalDateTime> horariosDescanso;
     private  List<LocalDateTime> horarioBloqueado;
 
-    public Medico(String nome, String crm, Especialidade especialidade, List<LocalDateTime> horariosDisponiveis, List<LocalDateTime> horariosDescanso, List<LocalDateTime> horarioBloqueado) {
+    public Medico(String nome, String crm, Especialidade especialidade, List<LocalDateTime> horariosDisponiveis,
+                  List<LocalDateTime> horariosConsultas, List<LocalDateTime> horariosDescanso, List<LocalDateTime> horarioBloqueado) {
         this.nome = nome;
         this.crm = crm;
         this.especialidade = especialidade;
         this.horariosDisponiveis = horariosDisponiveis;
+        this.horariosConsultas = horariosConsultas;
         this.horariosDescanso = horariosDescanso;
         this.horarioBloqueado = horarioBloqueado;
     }
 
+    public List<LocalDateTime> getHorariosConsultas() {
+        return horariosConsultas;
+    }
+
+    public void setHorariosConsultas(List<LocalDateTime> horariosConsultas) {
+        this.horariosConsultas = horariosConsultas;
+    }
 
     public String getNome() {
         return nome;
@@ -79,6 +89,7 @@ public class Medico {
                 "nome='" + nome + '\'' +
                 ", crm='" + crm + '\'' +
                 ", especialidade=" + especialidade +
+                ", horariosConsultas=" + horariosConsultas +
                 ", horariosDisponiveis=" + horariosDisponiveis +
                 ", horariosDescanso=" + horariosDescanso +
                 ", horarioBloqueado=" + horarioBloqueado +

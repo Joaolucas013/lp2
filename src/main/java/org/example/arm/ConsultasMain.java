@@ -31,10 +31,8 @@ public class ConsultasMain {
                 case 4:
                     cadastrarMedico();
                     break;
+
                 case 5:
-                    cadastrarPaciente();
-                    break;
-                case 6:
                     salvar();
                     System.out.println("Bye...");
                     continuar= false;
@@ -49,9 +47,6 @@ public class ConsultasMain {
         consultaService.finalizar();
     }
 
-    private static void cadastrarPaciente() {
-        pacienteService.cadastrarPaciente();
-    }
 
     private static void cadastrarMedico() {
         medicoService.cadastrarMedico();
@@ -77,8 +72,7 @@ public class ConsultasMain {
                 2 - Bloquear horario
                 3 - Consultar por especialidade
                 4 - cadastrar médico
-                5 - cadastrar paciente
-                6 - Sair
+                5- Sair
                 """);
     }
 

@@ -68,9 +68,11 @@ public class PacienteService {
 
 
     public Paciente procurarPaciente(String nome) {
-
-        if(pacientes.isEmpty()){
+        if (pacientes.isEmpty()) {
             recuperarPaciente();
+            if (pacientes.isEmpty()) {
+                return cadastrarPaciente();
+            }
         }
         for (Paciente p : pacientes) {
             if (p.getNome().trim().equalsIgnoreCase(nome.trim())) {

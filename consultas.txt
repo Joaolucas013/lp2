@@ -1,0 +1,8 @@
+Consulta{horario consulta=2025-02-18T14:30, paciente=Paciente{nome='eminem', sexo='masculino', idade=23}, medico=Joao Lucas, Especialidade=CARDIOLOGIA, CRM=1234}
+Consulta{horario consulta=2025-02-18T14:30, paciente=Paciente{nome='eminem', sexo='masculino', idade=23}, medico=Joao Lucas, Especialidade=CARDIOLOGIA, CRM=1234}
+Consulta{horario consulta=2025-02-18T14:30, paciente=Paciente{nome='eminem', sexo='masculino', idade=23}, medico=Joao Lucas, Especialidade=CARDIOLOGIA, CRM=1234}
+Consulta{horario consulta=2025-02-18T14:30, paciente=Paciente{nome='eminem', sexo='masculino', idade=23}, medico=Joao Lucas, Especialidade=CARDIOLOGIA, CRM=1234}
+Consulta{horario consulta=2025-02-17T13:30, paciente=Paciente{nome='eminem', sexo='masculino', idade=23}, medico=Joao Lucas, Especialidade=CARDIOLOGIA, CRM=1234}
+Consulta{horario consulta=2025-02-17T13:30, paciente=Paciente{nome='eminem', sexo='masculino', idade=23}, medico=Joao Lucas, Especialidade=CARDIOLOGIA, CRM=1234}
+Consulta{horario consulta=2025-02-17T13:30, paciente=Paciente{nome='eminem', sexo='masculino', idade=23}, medico=Joao Lucas, Especialidade=CARDIOLOGIA, CRM=1234}
+Consulta{horario consulta=2025-02-18T14:30, paciente=Paciente{nome='eminem', sexo='masculino', idade=23}, medico=Joao Lucas, Especialidade=CARDIOLOGIA, CRM=1234}
