@@ -91,6 +91,7 @@ public class ConsultaService{
 
             if (medico.getHorariosDisponiveis().contains(outroHorario) && !medico.getHorariosDisponiveis().isEmpty()) {
                 medico.getHorariosDisponiveis().remove(outroHorario);
+                return validarHorario(outroHorario, medico);
 
             } else {
                 System.out.println("Não há mais horarios disponiveis, escolha o melhor horário para voce.");
@@ -98,7 +99,6 @@ public class ConsultaService{
                 return validarHorario(melhorHorario, medico);
             }
 
-            return validarHorario(outroHorario, medico);
         }
 
         return horarioPaciente;
