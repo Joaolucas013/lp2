@@ -63,7 +63,7 @@ public class ConsultaService{
             medicoService.salvarAlteracoes();
             System.out.println("Consulta agendada com sucesso!");
         } else{
-            System.out.println("Não há mais horários disponíveis. Escolha um horario alternativo:");
+            System.out.println("Não há mais horários para consultas. Escolha um horario alternativo:");
             medico.getHorariosDisponiveis().stream().forEach(System.out::println);
 
             LocalDateTime horarioPaciente = LocalDateTime.parse(scanner.nextLine().trim());
@@ -94,7 +94,7 @@ public class ConsultaService{
                 return validarHorario(outroHorario, medico);
 
             } else {
-                System.out.println("Não há mais horarios disponiveis, escolha o melhor horário para voce.");
+                System.out.println("Não há mais horarios para consultas, escolha o melhor horário para voce.");
                 LocalDateTime melhorHorario = LocalDateTime.parse(scanner.nextLine().trim());
                 return validarHorario(melhorHorario, medico);
             }
