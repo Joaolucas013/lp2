@@ -315,18 +315,19 @@ public class MedicoService {
                 "1234",
                 Especialidade.CARDIOLOGIA,
                 Arrays.asList(              // consulta
-                        LocalDateTime.parse("2025-02-23T07:00"),
-                        LocalDateTime.parse("2025-02-24T08:00"),
-                        LocalDateTime.parse("2025-02-25T09:00"),
-                        LocalDateTime.parse("2025-02-26T10:00"),
-                        LocalDateTime.parse("2025-02-27T11:30")
-                ),
-                Arrays.asList(    // horario disponivel
                         LocalDateTime.parse("2025-02-17T13:30"),
                         LocalDateTime.parse("2025-02-18T14:30"),
                         LocalDateTime.parse("2025-02-19T15:00"),
                         LocalDateTime.parse("2025-02-20T15:30"),
                         LocalDateTime.parse("2025-02-21T16:00")
+
+                ),
+                Arrays.asList(    // horario disponivel
+                        LocalDateTime.parse("2025-02-23T07:00"),
+                        LocalDateTime.parse("2025-02-24T08:00"),
+                        LocalDateTime.parse("2025-02-25T09:00"),
+                        LocalDateTime.parse("2025-02-26T10:00"),
+                        LocalDateTime.parse("2025-02-27T11:30")
                 ),
                 Arrays.asList(  // descanso
                         LocalDateTime.parse("2025-02-17T12:00"),
@@ -349,19 +350,20 @@ public class MedicoService {
                 "1122",
                 Especialidade.ORTOPEDIA,
                 Arrays.asList(
-                        LocalDateTime.parse("2025-02-23T08:00"),
-                        LocalDateTime.parse("2025-02-24T08:30"),
-                        LocalDateTime.parse("2025-02-25T09:00"),
-                        LocalDateTime.parse("2025-02-26T09:30"),
-                        LocalDateTime.parse("2025-02-27T10:30")
-                ),
-                Arrays.asList(
                         LocalDateTime.parse("2025-02-17T13:30"),
                         LocalDateTime.parse("2025-02-18T14:00"),
                         LocalDateTime.parse("2025-02-19T14:30"),
                         LocalDateTime.parse("2025-02-20T15:00"),
                         LocalDateTime.parse("2025-02-21T15:30"),
                         LocalDateTime.parse("2025-02-22T16:00")
+
+                ),
+                Arrays.asList(
+                        LocalDateTime.parse("2025-02-23T08:00"),
+                        LocalDateTime.parse("2025-02-24T08:30"),
+                        LocalDateTime.parse("2025-02-25T09:00"),
+                        LocalDateTime.parse("2025-02-26T09:30"),
+                        LocalDateTime.parse("2025-02-27T10:30")
 
                 ),
                 Arrays.asList(
@@ -387,19 +389,19 @@ public class MedicoService {
                 "3344",
                 Especialidade.NEUROLOGIA,
                 Arrays.asList(
-                        LocalDateTime.parse("2025-02-23T08:00"),
-                        LocalDateTime.parse("2025-02-24T09:30"),
-                        LocalDateTime.parse("2025-02-25T10:00"),
-                        LocalDateTime.parse("2025-02-26T10:30"),
-                        LocalDateTime.parse("2025-02-27T11:00")
-                ),
-                Arrays.asList(
                         LocalDateTime.parse("2025-02-19T16:00"),
                         LocalDateTime.parse("2025-02-20T13:30"),
                         LocalDateTime.parse("2025-02-21T14:00"),
                         LocalDateTime.parse("2025-02-22T14:30"),
                         LocalDateTime.parse("2025-02-24T15:00")
 
+                ),
+                Arrays.asList(
+                        LocalDateTime.parse("2025-02-23T08:00"),
+                        LocalDateTime.parse("2025-02-24T09:30"),
+                        LocalDateTime.parse("2025-02-25T10:00"),
+                        LocalDateTime.parse("2025-02-26T10:30"),
+                        LocalDateTime.parse("2025-02-27T11:00")
                 ),
                 Arrays.asList(
                         LocalDateTime.parse("2025-02-19T12:00"),
@@ -424,18 +426,19 @@ public class MedicoService {
                 "5108",
                 Especialidade.DERMATOLOGIA,
                 Arrays.asList(
-                        LocalDateTime.parse("2025-02-23T08:00"),
-                        LocalDateTime.parse("2025-02-24T09:30"),
-                        LocalDateTime.parse("2025-02-25T10:00"),
-                        LocalDateTime.parse("2025-02-26T10:30"),
-                        LocalDateTime.parse("2025-02-27T11:00")
-                ),
-                Arrays.asList(
                         LocalDateTime.parse("2025-02-17T13:30"),
                         LocalDateTime.parse("2025-02-18T14:20"),
                         LocalDateTime.parse("2025-02-19T15:00"),
                         LocalDateTime.parse("2025-02-20T15:40"),
                         LocalDateTime.parse("2025-02-21T16:20")
+
+                ),
+                Arrays.asList(
+                        LocalDateTime.parse("2025-02-23T08:00"),
+                        LocalDateTime.parse("2025-02-24T09:30"),
+                        LocalDateTime.parse("2025-02-25T10:00"),
+                        LocalDateTime.parse("2025-02-26T10:30"),
+                        LocalDateTime.parse("2025-02-27T11:00")
                 ),
                 Arrays.asList(
                         LocalDateTime.parse("2025-02-17T12:00"),
@@ -459,19 +462,19 @@ public class MedicoService {
                 "5678",
                 Especialidade.DERMATOLOGIA,
                 Arrays.asList(
+                        LocalDateTime.parse("2025-02-19T13:00"),
+                        LocalDateTime.parse("2025-02-20T13:40"),
+                        LocalDateTime.parse("2025-02-21T15:30"),
+                        LocalDateTime.parse("2025-02-22T16:00"),
+                        LocalDateTime.parse("2025-02-17T17:00")
+
+                ),
+                Arrays.asList(
                         LocalDateTime.parse("2025-02-23T08:00"),
                         LocalDateTime.parse("2025-02-24T09:30"),
                         LocalDateTime.parse("2025-02-25T10:00"),
                         LocalDateTime.parse("2025-02-26T10:30"),
                         LocalDateTime.parse("2025-02-27T11:00")
-                ),
-                Arrays.asList(
-                        LocalDateTime.parse("2025-02-19T13:00"),
-                        LocalDateTime.parse("2025-02-20T13:40"),
-                        LocalDateTime.parse("2025-02-21T15:30"),
-                        LocalDateTime.parse("2025-02-22T16:00"),
-                        LocalDateTime.parse("2025-02-24T17:00")
-
                 ),
                 Arrays.asList(
                         LocalDateTime.parse("2025-02-17T12:00"),

@@ -1,2 +1,0 @@
-Consulta{horario consulta=2025-02-23T07:00, paciente=Paciente{nome='eminem', sexo='masculino', idade=23}, medico=Joao Lucas, Especialidade=CARDIOLOGIA, CRM=1234}
-Consulta{horario consulta=2025-02-23T08:00, paciente=Paciente{nome='eminem', sexo='masculino', idade=23}, medico=Gabriel Barbosa, Especialidade=DERMATOLOGIA, CRM=5678}
