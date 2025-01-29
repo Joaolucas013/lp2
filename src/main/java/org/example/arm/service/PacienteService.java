@@ -41,16 +41,17 @@ public class PacienteService {
 
     }
     public void recuperarPaciente() {
-        String path = "C:\\meuscode\\consultasLp2\\paciente.txt";
+        String path = "C:\\meuscode\\consultasLp2\\pacientes.txt";
 
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
 
-            String linha = br.readLine(); //br.readLine(); // Lê a primeira linha
-            while (linha != null) {
+            String linha = null;
+            while ((linha = br.readLine()) != null) {
                 linha = linha.replace("Paciente{", "")
                         .replace("}", "");
 
                 String[] vetor = linha.split(", ");
+
                 if (vetor.length < 3) {
                     System.out.println("Paciente não cadastrado. Cadastre-see!");
                     cadastrarPaciente();
@@ -63,14 +64,12 @@ public class PacienteService {
 
                 Paciente paciente = new Paciente(nome, sexo, idade);
                 pacientes.add(paciente);
-                linha = br.readLine();
 
             }
         } catch (IOException e) {
             throw new RuntimeException();
         }
     }
-
     public Paciente procurarPaciente(String nome) {
         if(pacientes.isEmpty()){
             recuperarPaciente();
