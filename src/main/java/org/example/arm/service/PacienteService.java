@@ -3,13 +3,12 @@ package org.example.arm.service;
 import org.example.arm.paciente.Paciente;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class PacienteService {
 
-    List<Paciente> pacientes = new ArrayList<>();
+    Set<Paciente> pacientes = new HashSet<>();
     Scanner scanner = new Scanner(System.in);
 
     public Paciente  cadastrarPaciente() {
@@ -41,46 +40,49 @@ public class PacienteService {
 
     }
     public void recuperarPaciente() {
-        String path = "C:\\meuscode\\consultasLp2\\pacientes.txt";
+        String path = "C:\\meuscode\\consultasLp2\\paciente.txt";
 
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
 
-            String linha = null;
-            while ((linha = br.readLine()) != null) {
-                linha = linha.replace("Paciente{", "")
-                        .replace("}", "");
+                String linha = null;
+                while ((linha = br.readLine()) != null) {
+                    linha = linha.replace("Paciente{", "")
+                            .replace("}", "");
 
-                String[] vetor = linha.split(", ");
+                    String[] vetor = linha.split(", ");
 
-                if (vetor.length < 3) {
-                    System.out.println("Paciente não cadastrado. Cadastre-see!");
-                    cadastrarPaciente();
-                    continue;
+                    if (vetor.length < 3) {
+                        System.out.println("Paciente não cadastrado. Cadastre-see!");
+                        cadastrarPaciente();
+                        continue;
+                    }
+
+                    String nome = vetor[0].split("=")[1].replace("'", "");
+                    String sexo = vetor[1].split("=")[1].replace("'", "");
+                    Integer idade = Integer.valueOf(vetor[2].split("=")[1].replace("'", ""));
+
+                    Paciente paciente = new Paciente(nome, sexo, idade);
+                    pacientes.add(paciente);
+
                 }
-
-                String nome = vetor[0].split("=")[1].replace("'", "");
-                String sexo = vetor[1].split("=")[1].replace("'", "");
-                Integer idade = Integer.valueOf(vetor[2].split("=")[1].replace("'", ""));
-
-                Paciente paciente = new Paciente(nome, sexo, idade);
-                pacientes.add(paciente);
-
+            } catch (IOException e) {
+                throw new RuntimeException();
             }
-        } catch (IOException e) {
-            throw new RuntimeException();
         }
-    }
+
+
     public Paciente procurarPaciente(String nome) {
-        if(pacientes.isEmpty()){
-            recuperarPaciente();
-            System.out.println(pacientes);
-        }
+        recuperarPaciente();
+        pacientes.stream().collect(Collectors.toSet());
+
         for (Paciente p : pacientes) {
             if (p.getNome().trim().equalsIgnoreCase(nome.trim())) {
-                return p;
+                Paciente pc = new Paciente(p.getNome(), p.getSexo(), p.getIdade());
+                return pc;
             }
         }
-        System.out.println("Paciente não encontrado. cadastre-se");
+        pacientes.stream().forEach(System.out::println);
+        System.out.println("Paciente não encontrado. cadastre-seeee");
         var p = cadastrarPaciente();
         return p;
     }
