@@ -164,7 +164,7 @@ public class ConsultaService{
 //    }
 
     public List<DadosConsulta> retornaConsultas() {
-        String caminho = "C:\\meuscode\\teste\\consultas.txt";
+        String caminho = "C:\\meuscode\\consultasLp2\\consultas.txt";
 
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(caminho))) {
             String linha =  bufferedReader.readLine();
