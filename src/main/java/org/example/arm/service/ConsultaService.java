@@ -131,37 +131,6 @@ public class ConsultaService{
             throw new RuntimeException(e);
         }
     }
-//
-//    public List<DadosConsulta> retornaConsultas() {
-//        DadosConsulta dados = null;
-//        String caminho = "C:\\meuscode\\consultasLp2\\consultas.txt";
-//        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(caminho))) {
-//            String linha = bufferedReader.readLine();
-//
-//            while (linha != null) {
-//                linha = linha.replace("Consulta{horario consulta=", "")
-//                        .replace("}", "")
-//                        .replace("paciente=", "")
-//                        .replace("medico=", "");
-//
-//                String[] vetor = linha.split(", ");
-//                String horarioConsulta = vetor[0];
-//                String paciente = vetor[1];
-//                String medico = vetor[2];
-//
-//                String nomePaciente = paciente.split(",")[0].split("=")[1].replace("'", "").trim();
-//                String nomeMedico = medico.trim();
-//                LocalDateTime dataConsulta = LocalDateTime.parse(horarioConsulta);
-//
-//                dados = new DadosConsulta(nomePaciente, nomeMedico, dataConsulta);
-//                linha = bufferedReader.readLine();
-//                dadosConsultas.add(dados);
-//            }
-//        } catch (IOException e) {
-//            throw new RuntimeException();
-//        }
-//        return dadosConsultas;
-//    }
 
     public List<DadosConsulta> retornaConsultas() {
         String caminho = "C:\\meuscode\\consultasLp2\\consultas.txt";
