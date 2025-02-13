@@ -111,6 +111,7 @@ public class MedicoService {
                 String consultas = vetor[3].split("=")[1];
                 List<LocalDateTime> consultashrs = listaHorarios(consultas);
 
+
                 String horariosDisponiveisStr = vetor[4].split("=")[1];
                 List<LocalDateTime> horariosDisponiveis = listaHorarios(horariosDisponiveisStr);
 
@@ -315,19 +316,20 @@ public class MedicoService {
                 "1234",
                 Especialidade.CARDIOLOGIA,
                 Arrays.asList(              // consulta
+                        LocalDateTime.parse("2025-02-23T07:00"),
+                        LocalDateTime.parse("2025-02-24T08:00"),
+                        LocalDateTime.parse("2025-02-25T09:00"),
+                        LocalDateTime.parse("2025-02-26T10:00"),
+                        LocalDateTime.parse("2025-02-27T11:30")
+
+                ),
+                Arrays.asList(    // horario disponivel
                         LocalDateTime.parse("2025-02-17T13:30"),
                         LocalDateTime.parse("2025-02-18T14:30"),
                         LocalDateTime.parse("2025-02-19T15:00"),
                         LocalDateTime.parse("2025-02-20T15:30"),
                         LocalDateTime.parse("2025-02-21T16:00")
 
-                ),
-                Arrays.asList(    // horario disponivel
-                        LocalDateTime.parse("2025-02-23T07:00"),
-                        LocalDateTime.parse("2025-02-24T08:00"),
-                        LocalDateTime.parse("2025-02-25T09:00"),
-                        LocalDateTime.parse("2025-02-26T10:00"),
-                        LocalDateTime.parse("2025-02-27T11:30")
                 ),
                 Arrays.asList(  // descanso
                         LocalDateTime.parse("2025-02-17T12:00"),

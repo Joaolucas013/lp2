@@ -26,7 +26,7 @@ public class PacienteService {
 
 
     private void salvarPaciente(Paciente paciente) {
-        // aqui é interessante que voce coloque o caminho certo do arquivo e coloque // em vez de / se nao o java entende como quebra de linha
+
         String path = "C:\\meuscode\\consultasLp2\\paciente.txt";
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(path, true))) {
