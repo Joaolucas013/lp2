@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class Medico {
 
-    private String nome;
+private String nome;
     private String crm;
     private Especialidade especialidade;
     private List<LocalDateTime> horariosConsultas;
@@ -24,6 +24,7 @@ public class Medico {
         this.horariosDisponiveis = horariosDisponiveis;
         this.horariosDescanso = horariosDescanso;
         this.horarioBloqueado = horarioBloqueado;
+
     }
 
     public List<LocalDateTime> getHorariosConsultas() {
