@@ -29,7 +29,6 @@ public class ConsultaService{
         String nome = scanner.nextLine().trim();
         var paciente = pacienteService.procurarPaciente(nome);
 
-
         medicoService.retornarLista();
         System.out.println("Escolha um médico!");
         String name = scanner.nextLine();
