@@ -81,10 +81,10 @@ public class PacienteService {
                     String[] vetor = linha.split(", ");
 
                     if (vetor.length < 3) {
-                        System.out.println("Paciente não cadastrado. CADASTRE-SE: ");
-                        cadastrarPaciente();
-                        continue;
-                    }
+                    System.out.println("Não há nenhum paciente cadastrado, cadastre-se!");
+                    cadastrarPaciente();
+                    continue;
+                }
 
                     String nome = vetor[0].split("=")[1].replace("'", "");
                     String sexo = vetor[1].split("=")[1].replace("'", "");
