@@ -8,26 +8,55 @@ import java.util.stream.Collectors;
 
 public class PacienteService {
 
+    //EDITE ESSA PARTE COLOCANDO O CAMINHO DO SEU ARQUIVO paciente.txt -----------------------------------------------
+    String path = "C:\\Users\\Lailly\\OneDrive\\Documentos\\Faculdade\\Linguagem de Programação II\\Trabalho_Agenda\\lp2\\paciente.txt";
+
     Set<Paciente> pacientes = new HashSet<>();
     Scanner scanner = new Scanner(System.in);
+    String sexo;
 
-    public Paciente  cadastrarPaciente() {
-        System.out.println("Informe o  nome do paciente:");
-        String nome = scanner.nextLine().trim();
-        System.out.println("Informe a  idade:");
-        int idade = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("Informe o sexo:");
-        String sexo = scanner.nextLine().trim();
+    public Paciente cadastrarPaciente() {
+        String nome = null;
+        int idade = 0;
+        String sexo = null;
+        boolean valido = false;
+
+        while (!valido) {
+            System.out.println("Informe o nome do paciente:");
+            nome = scanner.nextLine().trim();
+            if (nome.isEmpty() || nome.matches(".*\\d.*")) {
+                System.out.println("Nome não pode ser vazio ou conter números. Tente novamente.");
+                continue;
+            }
+
+            System.out.println("Informe a idade:");
+            try {
+                idade = Integer.parseInt(scanner.nextLine().trim());
+                if (idade <= 0) {
+                    System.out.println("Idade deve ser um número positivo. Tente novamente.");
+                    continue;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Idade inválida. Tente novamente.");
+                continue;
+            }
+
+            System.out.println("Informe o sexo (M/F):");
+            sexo = scanner.nextLine().trim().toUpperCase();
+            if (!sexo.equals("M") && !sexo.equals("F")) {
+                System.out.println("Sexo inválido. Deve ser 'M' ou 'F'. Tente novamente.");
+                continue;
+            }
+
+            valido = true;
+        }
+
         Paciente paciente = new Paciente(nome, sexo, idade);
         salvarPaciente(paciente);
         return paciente;
     }
 
-
     private void salvarPaciente(Paciente paciente) {
-
-        String path = "C:\\meuscode\\consultasLp2\\paciente.txt";
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(path, true))) {
             bw.write(paciente.toString());
@@ -39,8 +68,8 @@ public class PacienteService {
         }
 
     }
+
     public void recuperarPaciente() {
-        String path = "C:\\meuscode\\consultasLp2\\paciente.txt";
 
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
 
@@ -52,7 +81,7 @@ public class PacienteService {
                     String[] vetor = linha.split(", ");
 
                     if (vetor.length < 3) {
-                        System.out.println("Paciente não cadastrado. Cadastre-see!");
+                        System.out.println("Paciente não cadastrado. CADASTRE-SE: ");
                         cadastrarPaciente();
                         continue;
                     }
@@ -81,8 +110,9 @@ public class PacienteService {
                 return pc;
             }
         }
+        
         pacientes.stream().forEach(System.out::println);
-        System.out.println("Paciente não encontrado. cadastre-seeee");
+        System.out.println("Paciente não encontrado. CADASTRE-SE: ");
         var p = cadastrarPaciente();
         return p;
     }
