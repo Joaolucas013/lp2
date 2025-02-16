@@ -10,7 +10,7 @@ import java.util.*;
 
 public class MedicoService {
 
-    public static List<Medico> medicoList = new ArrayList<>();
+      public static List<Medico> medicoList = new ArrayList<>();
     public static List<Medico> medicoImutaveis = new ArrayList<>();
 
     public  Scanner scanner = new Scanner(System.in);
@@ -59,7 +59,7 @@ public class MedicoService {
     }
 
     private void salvarMedicoEmArquivo(Medico medico) throws IOException {
-        String caminho = "C:\\meuscode\\consultasLp2\\medicos.txt";
+        String caminho = "medicos.txt";
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho, true))) {
             try {
                 bw.write(medico.toString());
@@ -76,7 +76,7 @@ public class MedicoService {
     }
 
     private void salvarTodosMedicos() throws IOException {
-        String caminho = "C:\\meuscode\\consultasLp2\\medicos.txt";
+        String caminho = "medicos.txt";
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho))) {
             try {
                 for (Medico medico : medicoList) {
@@ -96,7 +96,7 @@ public class MedicoService {
     }
 
     public List<Medico> recuperarMedico() {
-        String caminho = "C:\\meuscode\\consultasLp2\\medicos.txt";
+        String caminho = "medicos.txt";
         try (BufferedReader br = new BufferedReader(new FileReader(caminho))) {
             String linha = br.readLine();
 
@@ -179,7 +179,7 @@ public class MedicoService {
 
 
     public void salvarAlteracoes() {
-        String caminho = "C:\\meuscode\\consultasLp2\\medicos.txt";
+        String caminho = "medicos.txt";
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho))) {
             try {
                 for (Medico medico : medicoList) {
@@ -240,7 +240,7 @@ public class MedicoService {
 
 
     private void salvarMedicoImutaveis() {
-        String caminho = "C:\\meuscode\\consultasLp2\\medicos.txt";
+        String caminho = "medicos.txt";
         try {
             try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho))) {
                 for (Medico medico : medicoImutaveis) {
@@ -309,7 +309,6 @@ public class MedicoService {
         return medicoList;
     }
 
-
     public void iniciarMedicos() {
         Medico med1 = new Medico(
                 "Joao Lucas",
@@ -324,22 +323,22 @@ public class MedicoService {
 
                 ),
                 Arrays.asList(    // horario disponivel
-                        LocalDateTime.parse("2025-02-17T13:30"),
+                        LocalDateTime.parse("2025-03-11T08:30"),
                         LocalDateTime.parse("2025-02-18T14:30"),
                         LocalDateTime.parse("2025-02-19T15:00"),
-                        LocalDateTime.parse("2025-02-20T15:30"),
+                        LocalDateTime.parse("2025-03-20T15:30"),
                         LocalDateTime.parse("2025-02-21T16:00")
 
                 ),
                 Arrays.asList(  // descanso
-                        LocalDateTime.parse("2025-02-17T12:00"),
+                        LocalDateTime.parse("2025-02-11T12:00"),
                         LocalDateTime.parse("2025-02-18T12:00"),
                         LocalDateTime.parse("2025-02-19T12:00"),
                         LocalDateTime.parse("2025-02-20T12:00"),
                         LocalDateTime.parse("2025-02-21T12:00")
                 ),
                 Arrays.asList(   // bloqueado
-                        LocalDateTime.parse("2025-02-17T18:00"),
+                        LocalDateTime.parse("2025-02-11T18:00"),
                         LocalDateTime.parse("2025-02-18T18:00"),
                         LocalDateTime.parse("2025-02-19T18:00"),
                         LocalDateTime.parse("2025-02-20T18:00"),
@@ -440,7 +439,7 @@ public class MedicoService {
                         LocalDateTime.parse("2025-02-24T09:30"),
                         LocalDateTime.parse("2025-02-25T10:00"),
                         LocalDateTime.parse("2025-02-26T10:30"),
-                        LocalDateTime.parse("2025-02-27T11:00")
+                        LocalDateTime.parse("2025-03-03T11:00")
                 ),
                 Arrays.asList(
                         LocalDateTime.parse("2025-02-17T12:00"),
@@ -501,6 +500,7 @@ public class MedicoService {
         medicoImutaveis.add(med5);
         salvarMedicoImutaveis();
     }
+
 
 
 }
