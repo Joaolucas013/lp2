@@ -82,7 +82,7 @@ public class PacienteService {
             }
         }
         pacientes.stream().forEach(System.out::println);
-        System.out.println("Paciente não encontrado. cadastre-seeee");
+        System.out.println("Paciente não encontrado. cadastre-se");
         var p = cadastrarPaciente();
         return p;
     }
