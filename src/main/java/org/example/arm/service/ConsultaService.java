@@ -23,6 +23,7 @@ public class ConsultaService{
     Scanner scanner = new Scanner(System.in);
 
 
+
     public void agendar() {
         System.out.println("Informe o nome do paciente:");
         String nome = scanner.nextLine().trim();
@@ -36,6 +37,7 @@ public class ConsultaService{
 
         agendarConsulta(paciente, medico);
     }
+
 
     public void cadastrarPelaEspecialidade() {
         System.out.println("Informe o nome do paciente:");
@@ -62,19 +64,33 @@ public class ConsultaService{
             salvarConsultasEmArquivo(consulta);
             medicoService.salvarAlteracoes();
             System.out.println("Consulta agendada com sucesso!");
-        } else{
-            System.out.println("Não há mais horários para consultas. Escolha um horario alternativo:");
+        } else if(!medico.getHorariosDisponiveis().isEmpty()){
             medico.getHorariosDisponiveis().stream().forEach(System.out::println);
 
+            System.out.println("Não há mais horários para consultas. Escolha um horario alternativo:");
             LocalDateTime horarioPaciente = LocalDateTime.parse(scanner.nextLine().trim());
             LocalDateTime outroHorario =  validarHorario(horarioPaciente, medico);
             var horarioFinal = validarConsulta(medico, outroHorario);
+            medico.getHorariosDisponiveis().remove(horarioFinal);
 
             Consulta consulta = new Consulta(horarioFinal, medico, paciente);
             medicoService.salvarAlteracoes();
+
             consultas.add(consulta);
             salvarConsultasEmArquivo(consulta);
             System.out.println("Consulta agendada com sucesso!");
+        } else {
+            System.out.println("Não há mais horarios para consultas, escolha o melhor horário para voce.");
+            LocalDateTime melhorHorario = LocalDateTime.parse(scanner.nextLine().trim());
+            validarHorario(melhorHorario, medico);
+
+            Consulta consulta = new Consulta(melhorHorario, medico, paciente);
+            medicoService.salvarAlteracoes();
+
+            consultas.add(consulta);
+            salvarConsultasEmArquivo(consulta);
+            System.out.println("Consulta agendada com sucesso!");
+
         }
 
     }
@@ -82,25 +98,18 @@ public class ConsultaService{
     private LocalDateTime validarHorario(LocalDateTime horarioPaciente, Medico medico) {
         boolean domingo = horarioPaciente.getDayOfWeek() == DayOfWeek.SUNDAY;
 
+
         if (medico.getHorariosDescanso().contains(horarioPaciente) ||
                 medico.getHorarioBloqueado().contains(horarioPaciente) || domingo) {
-
-            System.out.println("Sugestão: Horario escolhido anteriormente indisponível, escolha um dos horários alternativos abaixo:");
             medico.getHorariosDisponiveis().stream().forEach(System.out::println);
+            System.out.println("Sugestão: Horario escolhido anteriormente indisponível, escolha um dos horários alternativos abaixo:");
             LocalDateTime outroHorario = LocalDateTime.parse(scanner.nextLine().trim());
 
-            if (medico.getHorariosDisponiveis().contains(outroHorario) && !medico.getHorariosDisponiveis().isEmpty()) {
+            if (medico.getHorariosDisponiveis().contains(outroHorario)) {
                 medico.getHorariosDisponiveis().remove(outroHorario);
-                return validarHorario(outroHorario, medico);
-
-            } else {
-                System.out.println("Não há mais horarios para consultas, escolha o melhor horário para voce.");
-                LocalDateTime melhorHorario = LocalDateTime.parse(scanner.nextLine().trim());
-                return validarHorario(melhorHorario, medico);
+                return outroHorario;
             }
-
         }
-
         return horarioPaciente;
     }
 
@@ -108,22 +117,19 @@ public class ConsultaService{
 
         for (Consulta dados : consultas) {
             if (dados.getMedico().getNome().trim().equalsIgnoreCase(medico.getNome().trim())) {
-                if (dados.getDataConsulta().getDayOfWeek().equals(outroHorario.getDayOfWeek())) {
-                    System.out.println("Não é permitido consultas no mesmo dia para o mesmo médico." +
-                            " escolha outro horário");
+                if (dados.getDataConsulta().toLocalDate().equals(outroHorario.toLocalDate())) {
+                    System.out.println("Não é permitido consultas no mesmo dia para o mesmo médico. Escolha outro horário:");
                     LocalDateTime hr = LocalDateTime.parse(scanner.nextLine().trim());
-                    var hrValidado = validarHorario(hr, medico);
-                    return validarConsulta(medico, hrValidado);
+                    return validarConsulta(medico, hr);
                 }
             }
         }
-
         return outroHorario;
     }
 
 
     public void salvarConsultasEmArquivo(Consulta consulta)  {
-        String caminho = "C:\\meuscode\\consultasLp2\\consultas.txt";
+        String caminho = "consultas.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(caminho, true))) {
             writer.write(consulta.toString());
             writer.newLine();
@@ -133,7 +139,7 @@ public class ConsultaService{
     }
 
     public List<DadosConsulta> retornaConsultas() {
-        String caminho = "C:\\meuscode\\consultasLp2\\consultas.txt";
+        String caminho = "consultas.txt";
 
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(caminho))) {
             String linha =  bufferedReader.readLine();
