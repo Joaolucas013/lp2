@@ -9,57 +9,113 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 public class MedicoService {
-
-      public static List<Medico> medicoList = new ArrayList<>();
+    String caminho = "medicos.txt";
+    
+    public static List<Medico> medicoList = new ArrayList<>();
     public static List<Medico> medicoImutaveis = new ArrayList<>();
 
     public  Scanner scanner = new Scanner(System.in);
 
     public void cadastrarMedico() {
-        System.out.println("Informe o nome do médico:");
-        String nome = scanner.nextLine().trim();
-
-        System.out.println("Informe o CRM:");
-        String crm = scanner.nextLine();
-        String crmValido = validarCrm(crm);
-
-        System.out.println("Informe  a especialidade");
-        Especialidade especialidade = Especialidade.valueOf(scanner.nextLine());
-
-        System.out.println("Informe o(s) horarios disponíveis para a semana!" + nome);
-        LocalDateTime horariosDisponiveis = LocalDateTime.parse(scanner.nextLine());
+        String nome = null;
+        String crm = null;
+        Especialidade especialidade = null;
         List<LocalDateTime> hrsDisponiveis = new ArrayList<>();
-        hrsDisponiveis.add(horariosDisponiveis);
-
-        System.out.println("Informe o(s) horarios  de consultas do médico!" + nome);
-        LocalDateTime consultaHorario = LocalDateTime.parse(scanner.nextLine());
         List<LocalDateTime> hrsConsultas = new ArrayList<>();
-        hrsConsultas.add(consultaHorario);
-
-        System.out.println("Informe o(s) horarios  de descanso para a semana: ");
-        LocalDateTime descanso = LocalDateTime.parse(scanner.nextLine());
         List<LocalDateTime> descansoSemanal = new ArrayList<>();
-        descansoSemanal.add(descanso);
-
-        System.out.println("Informe o(s) bloqueados para consulta na semana!");
-        LocalDateTime bloqueado = LocalDateTime.parse(scanner.nextLine());
         List<LocalDateTime> horariosbloqueados = new ArrayList<>();
-        horariosbloqueados.add(bloqueado);
+        boolean valido = false;
 
+        while (!valido) {
+            System.out.println("Informe o nome do médico:");
+            nome = scanner.nextLine().trim();
+            if (nome.isEmpty() || nome.matches(".*\\d.*")) {
+                System.out.println("Nome não pode ser vazio ou conter números. Tente novamente.");
+                continue;
+            }
 
-        Medico medico = new Medico(nome, crmValido, especialidade, hrsDisponiveis, hrsConsultas, descansoSemanal, horariosbloqueados);
+            System.out.println("Informe o CRM (números):");
+            crm = scanner.nextLine().trim();
+            if (crm.isEmpty() || crm.length() < 6 || crm.matches(".*[a-zA-Z].*")) {
+                System.out.println("CRM inválido. Deve conter 6 números. Tente novamente.");
+                continue;
+            }
+            crm = validarCrm(crm);
+
+            System.out.println("Informe a especialidade:");
+            try {
+                especialidade = Especialidade.valueOf(scanner.nextLine().trim().toUpperCase());
+            } catch (IllegalArgumentException e) {
+                System.out.println("Especialidade inválida. Tente novamente.");
+                continue;
+            }
+
+            System.out.println("Informe o(s) horários disponíveis para a semana (formato: yyyy-MM-ddTHH:mm):");
+            while (true) {
+                try {
+                    String input = scanner.nextLine().trim();
+                    if (input.isEmpty()) break;
+                    LocalDateTime horario = LocalDateTime.parse(input);
+                    hrsDisponiveis.add(horario);
+                } catch (Exception e) {
+                    System.out.println("Formato de data/hora inválido. Tente novamente.");
+                    continue;
+                }
+            }
+
+            System.out.println("Informe o(s) horários de consultas do médico (formato: yyyy-MM-ddTHH:mm):");
+            while (true) {
+                try {
+                    String input = scanner.nextLine().trim();
+                    if (input.isEmpty()) break;
+                    LocalDateTime horario = LocalDateTime.parse(input);
+                    hrsConsultas.add(horario);
+                } catch (Exception e) {
+                    System.out.println("Formato de data/hora inválido. Tente novamente.");
+                    continue;
+                }
+            }
+
+            System.out.println("Informe o(s) horários de descanso para a semana (formato: yyyy-MM-ddTHH:mm):");
+            while (true) {
+                try {
+                    String input = scanner.nextLine().trim();
+                    if (input.isEmpty()) break;
+                    LocalDateTime horario = LocalDateTime.parse(input);
+                    descansoSemanal.add(horario);
+                } catch (Exception e) {
+                    System.out.println("Formato de data/hora inválido. Tente novamente.");
+                    continue;
+                }
+            }
+
+            System.out.println("Informe o(s) horários bloqueados para consulta na semana (formato: yyyy-MM-ddTHH:mm):");
+            while (true) {
+                try {
+                    String input = scanner.nextLine().trim();
+                    if (input.isEmpty()) break;
+                    LocalDateTime horario = LocalDateTime.parse(input);
+                    horariosbloqueados.add(horario);
+                } catch (Exception e) {
+                    System.out.println("Formato de data/hora inválido. Tente novamente.");
+                    continue;
+                }
+            }
+
+            valido = true;
+        }
+
+        Medico medico = new Medico(nome, crm, especialidade, hrsDisponiveis, hrsConsultas, descansoSemanal, horariosbloqueados);
         medicoList.add(medico);
         System.out.println("Médico salvo com sucesso! " + medico);
         try {
             salvarMedicoEmArquivo(medico);
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     private void salvarMedicoEmArquivo(Medico medico) throws IOException {
-        String caminho = "medicos.txt";
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho, true))) {
             try {
                 bw.write(medico.toString());

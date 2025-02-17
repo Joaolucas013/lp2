@@ -42,29 +42,6 @@ public class ConsultasMain {
 
     }
 
-    private static void salvar() {
-        System.out.println("Salvando consulta!");
-        consultaService.finalizar();
-    }
-
-
-    private static void cadastrarMedico() {
-        medicoService.cadastrarMedico();
-    }
-
-    private static void cadastrarPelaEspecialidade() {
-        consultaService.cadastrarPelaEspecialidade();
-    }
-
-    private static void bloquearHorario() {
-        medicoService.bloquearHorario();
-    }
-
-    private static void agendar() {
-       consultaService.agendar();
-
-    }
-
     private static void menu() {
         System.out.println(""" 
              
@@ -73,7 +50,29 @@ public class ConsultasMain {
                 3 - Consultar por especialidade
                 4 - cadastrar médico
                 5- Sair
+                
                 """);
+    }
+
+    private static void agendar() {
+        consultaService.agendar();
+    }
+
+    private static void bloquearHorario() {
+        medicoService.bloquearHorario();
+    }
+
+    private static void cadastrarPelaEspecialidade() {
+        consultaService.cadastrarPelaEspecialidade();
+    }
+
+    private static void cadastrarMedico() {
+        medicoService.cadastrarMedico();
+    }
+
+    private static void salvar() {
+        System.out.println("Salvando consulta!");
+        consultaService.finalizar();
     }
 
 }

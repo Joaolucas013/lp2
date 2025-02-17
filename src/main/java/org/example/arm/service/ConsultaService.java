@@ -15,14 +15,11 @@ import java.util.Scanner;
 
 public class ConsultaService{
 
-
     List<DadosConsulta> dadosConsultas = new ArrayList<>();
     List<Consulta> consultas = new ArrayList<>();
     static MedicoService medicoService = new MedicoService();
     static PacienteService pacienteService = new PacienteService();
     Scanner scanner = new Scanner(System.in);
-
-
 
     public void agendar() {
         System.out.println("Informe o nome do paciente:");
